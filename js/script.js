@@ -62,3 +62,30 @@ window.onscroll = () =>{
       body.classList.remove('active');
    }
 }
+
+
+// ----------- Call API --------------------------------//
+
+document.addEventListener('DOMContentLoaded', function () {
+   // Wait for the DOM to be fully loaded
+
+   // Example API endpoint URL
+   const apiUrl = 'https://api-proj2.onrender.com/user';
+
+   // Make a GET request to the API
+   fetch(apiUrl)
+       .then(response => {
+           if (!response.ok) {
+               throw new Error(`HTTP error! Status: ${response.status}`);
+           }
+           return response.json();
+       })
+       .then(data => {
+           // Handle the API response data
+           console.log('API Response:', data);
+       })
+       .catch(error => {
+           // Handle errors
+           console.error('Error fetching data:', error);
+       });
+});
