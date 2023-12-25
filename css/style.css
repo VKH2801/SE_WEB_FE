@@ -11,6 +11,48 @@
    --border:.1rem solid rgba(0,0,0,.2);
 }
 
+.table {
+   background-color: var(--white);
+   border-radius: .5rem;
+   padding:2rem;
+   width: 100%;
+   font-family: 'Nunito', sans-serif;
+   font-size: 1.8rem;
+}
+
+.table-header {
+	display:flex;
+	width:100%;
+	background:#000;
+	padding:2rem 0;
+}
+
+.table-row {
+	display:flex;
+	width:100%;
+	padding:2rem 0;
+	
+	&:nth-of-type(odd) {
+		background:var(--light-color);
+	}
+}
+
+.table-data, .header__item {
+	flex: 1 1 20%;
+	text-align:center;
+}
+
+.header__item {
+	text-transform:uppercase;
+}
+
+.filter__link {
+	color:white;
+	text-decoration: none;
+	position:relative;
+	display:inline-block;
+}
+
 *{
    font-family: 'Nunito', sans-serif;
    margin:0; padding:0;
@@ -937,7 +979,7 @@ section{
    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
-.teachers .search-tutor{
+.admin .search-tutor{
    margin-bottom: 2rem;
    border-radius: .5rem;
    background-color: var(--white);
@@ -947,25 +989,25 @@ section{
    gap: 1.5rem;
 }
 
-.teachers .search-tutor input{
+.admin .search-tutor input{
    width: 100%;
    background: none;
    font-size: 1.8rem;
    color: var(--black);
 }
 
-.teachers .search-tutor button{
+.admin .search-tutor button{
    font-size: 2rem;
    color: var(--black);
    cursor: pointer;
    background:none;
 }
 
-.teachers .search-tutor button:hover{
+.admin .search-tutor button:hover{
    color: var(--main-color);
 }
 
-.teachers .box-container{
+.admin .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
    gap:1.5rem;
@@ -973,61 +1015,61 @@ section{
    align-items: flex-start;
 }
 
-.teachers .box-container .box{
+.admin .box-container .box{
    background-color: var(--white);
    border-radius: .5rem;
    padding: 2rem;
 }
 
-.teachers .box-container .offer{
+.admin .box-container .offer{
    text-align: center;
 }
 
-.teachers .box-container .offer h3{
+.admin .box-container .offer h3{
    font-size: 2.5rem;
    color: var(--black);
    text-transform: capitalize;
    padding-bottom: .5rem;
 }
 
-.teachers .box-container .offer p{
+.admin .box-container .offer p{
    line-height: 1.7;
    padding: .5rem 0;
    color: var(--light-color);
    font-size: 1.7rem;
 }
 
-.teachers .box-container .box .tutor{
+.admin .box-container .box .tutor{
    display: flex;
    align-items: center;
    gap:2rem;
    margin-bottom: 1.5rem;
 }
 
-.teachers .box-container .box .tutor img{
+.admin .box-container .box .tutor img{
    height: 5rem;
    width: 5rem;
    border-radius: 50%;
 }
 
-.teachers .box-container .box .tutor h3{
+.admin .box-container .box .tutor h3{
    font-size: 2rem;
    color: var(--black);
    margin-bottom: .2rem;
 }
 
-.teachers .box-container .box .tutor span{
+.admin .box-container .box .tutor span{
    font-size: 1.6rem;
    color: var(--light-color);
 }
 
-.teachers .box-container .box p{
+.admin .box-container .box p{
    padding: .5rem 0;
    font-size: 1.7rem;
    color: var(--light-color);
 }
 
-.teachers .box-container .box p span{
+.admin .box-container .box p span{
    color: var(--main-color);
 }
 
@@ -1373,4 +1415,4 @@ section{
       height: 25rem;
    }
 
-}
+} 
