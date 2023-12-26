@@ -1,6 +1,7 @@
 let toggleBtn = document.getElementById('toggle-btn');
 let body = document.body;
 let darkMode = localStorage.getItem('dark-mode');
+const url = 'https://uit-edu.onrender.com/api/';
 
 const enableDarkMode = () => {
   toggleBtn.classList.replace('fa-sun', 'fa-moon');
@@ -69,6 +70,20 @@ async function getVideos() {
   return data.data;
 }
 
+async function fetchLink(link, method, body) {
+  const response = await fetch(link, {
+    method: method, // Or 'PUT' or 'DELETE'
+    body: JSON.stringify(body), // For POST and PUT
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json()) // Handle the response
+  .catch(error => console.error(error));
+  const data = await response.json();
+  return data;
+}
+
 async function addVideosToTable(videos) {
   const tbody = document.querySelector('table tbody');
   videos.forEach((video) => {
@@ -89,9 +104,9 @@ async function addVideosToTable(videos) {
 }
 
 // Gọi hàm getVideos() khi trang được tải
-document.addEventListener('DOMContentLoaded', () => {
-  getVideos().then(addVideosToTable);
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//   fetchLink('https://uit-edu.onrender.com/api/categories', 'GET', {})
+// });
 
 // Gọi hàm addVideo() khi form được submit
 function uploadVideo() {

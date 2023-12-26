@@ -184,7 +184,7 @@
    </div>
 
 <div class="table">
-   <h1>List videos</h1>
+   <h1 class="heading">List videos</h1>
 	
 	<table class="table">
 		<div class="table-header">
@@ -221,15 +221,15 @@
 	</table>
 
    <div id="upload-form">
-      <h2>Upload Video</h2>
+      <h2 class="heading">Upload Video</h2>
       <form id="video-upload-form" enctype="multipart/form-data">
-          <input type="file" accept="video/*" id="video-input" name="video" required>
-          <button type="button" onclick="uploadVideo()">Upload</button>
+          <input type="file" accept="video/*" id="video-input" name="video" required class="box">
+          <button type="button" onclick="uploadVideo()" class="inline-btn">Upload</button>
       </form>
   </div>
 
   <div id="video-container">
-      <h2>Uploaded Video</h2>
+      <h2 class="heading">Uploaded Video</h2>
       <video controls id="uploaded-video"></video>
   </div>
 
@@ -264,7 +264,7 @@
 
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
-
+<script></script>
    
 </body>
 </html>
