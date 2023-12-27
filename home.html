@@ -68,11 +68,11 @@
          <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
          <a href="admin.html" id="teachersLink" style="display: none;"><i
                class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
-         <a href="contact.html" id="contactLink" style="display: none;"><i class="fas fa-headset"></i><span>Contact
+         <a href="contact.html" id="contactLink"><i class="fas fa-headset"></i><span>Contact
                Us</span></a>
-         <a href="contact.html" id="editPostLink" style="display: none;"><i
+         <a href="edit-post.html" id="editPostLink" style="display: none;"><i
                class="fa-solid fa-pen-to-square"></i><span>Edit Post</span></a>
-         <a href="contact.html" id="adminLink" style="display: none;"><i
+         <a href="admin.html" id="adminLink" style="display: none;"><i
                class="fa-solid fa-user-tie"></i><span>Admin</span></a>
       </nav>
 
@@ -96,16 +96,17 @@
 
          <div class="box">
             <h3 class="title">top categories</h3>
-            <div class="flex">
-               <a href="#"><i class="fas fa-code"></i><span>development</span></a>
+            <div class="flex" id="categories-box">
+               <!-- <a href="#"><i class="fas fa-code"></i><span>development</span></a>
                <a href="#"><i class="fas fa-chart-simple"></i><span>business</span></a>
                <a href="#"><i class="fas fa-pen"></i><span>design</span></a>
                <a href="#"><i class="fas fa-chart-line"></i><span>marketing</span></a>
                <a href="#"><i class="fas fa-music"></i><span>music</span></a>
                <a href="#"><i class="fas fa-camera"></i><span>photography</span></a>
                <a href="#"><i class="fas fa-cog"></i><span>software</span></a>
-               <a href="#"><i class="fas fa-vial"></i><span>science</span></a>
+               <a href="#"><i class="fas fa-vial"></i><span>science</span></a> -->
             </div>
+            <div id="error-message"></div>
          </div>
 
          <div class="box">
@@ -136,104 +137,8 @@
 
       <h1 class="heading">our courses</h1>
 
-      <div class="box-container">
-
-         <div class="box">
-            <div class="tutor">
-               <img src="images/pic-2.jpg" alt="">
-               <div class="info">
-                  <h3>john deo</h3>
-                  <span>21-10-2022</span>
-               </div>
-            </div>
-            <div class="thumb">
-               <img src="images/thumb-1.png" alt="">
-               <span>10 videos</span>
-            </div>
-            <h3 class="title">complete HTML tutorial</h3>
-            <a href="playlist.html" class="inline-btn">view playlist</a>
-         </div>
-
-         <div class="box">
-            <div class="tutor">
-               <img src="images/pic-3.jpg" alt="">
-               <div class="info">
-                  <h3>john deo</h3>
-                  <span>21-10-2022</span>
-               </div>
-            </div>
-            <div class="thumb">
-               <img src="images/thumb-2.png" alt="">
-               <span>10 videos</span>
-            </div>
-            <h3 class="title">complete CSS tutorial</h3>
-            <a href="playlist.html" class="inline-btn">view playlist</a>
-         </div>
-
-         <div class="box">
-            <div class="tutor">
-               <img src="images/pic-4.jpg" alt="">
-               <div class="info">
-                  <h3>john deo</h3>
-                  <span>21-10-2022</span>
-               </div>
-            </div>
-            <div class="thumb">
-               <img src="images/thumb-3.png" alt="">
-               <span>10 videos</span>
-            </div>
-            <h3 class="title">complete JS tutorial</h3>
-            <a href="playlist.html" class="inline-btn">view playlist</a>
-         </div>
-
-         <div class="box">
-            <div class="tutor">
-               <img src="images/pic-5.jpg" alt="">
-               <div class="info">
-                  <h3>john deo</h3>
-                  <span>21-10-2022</span>
-               </div>
-            </div>
-            <div class="thumb">
-               <img src="images/thumb-4.png" alt="">
-               <span>10 videos</span>
-            </div>
-            <h3 class="title">complete Boostrap tutorial</h3>
-            <a href="playlist.html" class="inline-btn">view playlist</a>
-         </div>
-
-         <div class="box">
-            <div class="tutor">
-               <img src="images/pic-6.jpg" alt="">
-               <div class="info">
-                  <h3>john deo</h3>
-                  <span>21-10-2022</span>
-               </div>
-            </div>
-            <div class="thumb">
-               <img src="images/thumb-5.png" alt="">
-               <span>10 videos</span>
-            </div>
-            <h3 class="title">complete JQuery tutorial</h3>
-            <a href="playlist.html" class="inline-btn">view playlist</a>
-         </div>
-
-         <div class="box">
-            <div class="tutor">
-               <img src="images/pic-7.jpg" alt="">
-               <div class="info">
-                  <h3>john deo</h3>
-                  <span>21-10-2022</span>
-               </div>
-            </div>
-            <div class="thumb">
-               <img src="images/thumb-6.png" alt="">
-               <span>10 videos</span>
-            </div>
-            <h3 class="title">complete SASS tutorial</h3>
-            <a href="playlist.html" class="inline-btn">view playlist</a>
-         </div>
-
+      <div id="error-message-our-course"></div>
+      <div class="box-container" id="courses-box">
       </div>
 
       <div class="more-btn">
@@ -251,12 +156,12 @@
          // Retrieve the data from localStorage when screen init
          const encodedData = localStorage.getItem('userLoginData');
          let userRole;
-         console.log(encodedData);
+         //console.log(encodedData);
          if (encodedData) {
             const decodedData = JSON.parse(decodeURIComponent(encodedData));
             userRole = decodedData.role
             // Use the data as needed
-            console.log('User Data:', decodedData);
+            //console.log('User Data:', decodedData);
 
             // Display the user's name
             const welcomeMessages = document.getElementsByClassName('user-name');
@@ -273,8 +178,10 @@
 
             // Hide links for non-admin users
             if (userRole === 'student') {
-               document.getElementById('teachersLink').style.display = 'flex';
-               document.getElementById('contactLink').style.display = 'flex';
+               document.getElementById('aboutLink').style.display = 'flex';
+               document.getElementById('coursesLink').style.display = 'flex';
+            } else {
+               document.getElementById('editPostLink').style.display = 'flex';
                document.getElementById('aboutLink').style.display = 'flex';
                document.getElementById('coursesLink').style.display = 'flex';
                document.getElementById('adminLink').style.display = 'flex';
@@ -296,6 +203,123 @@
       }
    </script>
 
-</body>
+   <!-- Fetch all categories -->
+   <script>
+      const errorMessageContainer = document.getElementById('error-message');
+      const categoriesContainer = document.getElementById('categories-box');
+
+      document.addEventListener('DOMContentLoaded', async function () {
+         try {
+            const response = await fetch('https://uit-edu.onrender.com/api/categories', {
+               method: 'GET',
+               headers: {
+                  'Content-Type': 'application/json',
+               },
+            });
+
+            if (response.ok) {
+               const data = await response.json();
+
+               if (data.success === true) {
+
+                  // Iterate over categories and create HTML elements
+                  data.message.forEach(category => {
+                     const categoryLink = document.createElement('a');
+                     const iconElement = document.createElement('i');
+                     const spanElement = document.createElement('span');
+
+                     categoryLink.href = '#'; // Set your desired link here
+                     iconElement.className = 'fas fa-code'; // Set your desired icon class here
+                     spanElement.textContent = category.name;
+
+                     // Append elements to the container
+                     categoryLink.appendChild(iconElement);
+                     categoryLink.appendChild(spanElement);
+                     categoriesContainer.appendChild(categoryLink);
+                  });
+               } else {
+                  // Display error message
+                  errorMessageContainer.textContent = data.message ?? '*Server error';
+               }
+            } else {
+               errorMessageContainer.textContent = `*Error: ${response.status} - ${response.statusText}`;
+            }
+         } catch (error) {
+            console.error('Fetch error:', error);
+            errorMessageContainer.textContent = '*Fetch error';
+         }
+      });
+   </script>
+
+
+   <!-- Fetch course -->
+   <script>
+      document.addEventListener('DOMContentLoaded', async function () {
+         const errorMessageCoursesContainer = document.getElementById('error-message-our-course');
+         const coursesContainer = document.getElementById('courses-box')
+
+         try {
+            const response = await fetch('https://uit-edu.onrender.com/api/courses', {
+               method: 'GET',
+               headers: {
+                  'Content-Type': 'application/json',
+               },
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+               console.log(data.message);
+               const listCoursesName = [];
+               data.message.forEach(item => {
+                  listCoursesName.push(item.title)
+               })
+               // Save the array of course title to localStorage
+               localStorage.setItem('courseTitle', JSON.stringify(listCoursesName));
+               console.log(localStorage.getItem('courseTitle'));
+               data.message.forEach((item, index) => {
+                  if (index > 5) {
+                     return;
+                  }
+                  //Format uploadedTime
+                  const dateObj = new Date(item.uploadedTime);
+                  const itemTime = `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
+                  const totalCoursesVid = item.video.length;
+
+                  // Create a new box element
+                  const boxElement = document.createElement('div');
+                  boxElement.className = 'box';
+
+                  // Append elements to the box
+                  boxElement.innerHTML = `
+                    <div class="tutor">
+                        <img src="images/pic-2.jpg" alt="">
+                        <div class="info">
+                            <h3>Hoàng</h3>
+                            <span>${itemTime}</span>
+                        </div>
+                    </div>
+                    <div class="thumb">
+                        <img src="${item.thumbnail}" alt="">
+                        <span>${totalCoursesVid} video</span>
+                    </div>
+                    <h3 class="title">${item.title}</h3>
+                    <a href="playlist.html?id=${item._id}" class="inline-btn">view playlist</a>
+                `;
+
+                  // Append the box to the courses container
+                  coursesContainer.appendChild(boxElement);
+               });
+            } else {
+               errorMessageCoursesContainer.textContent = data.message ?? '*Server Error';
+            }
+         } catch (error) {
+            console.error('Fetch error:', error);
+            errorMessageCoursesContainer.textContent = '*Fetch Error';
+         }
+      });
+
+   </script>
+</body>  
 
 </html>

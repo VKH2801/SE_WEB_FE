@@ -24,7 +24,7 @@
 .table-header {
 	display:flex;
 	width:100%;
-	background:#000;
+	background:#8e44ad;
 	padding:2rem 0;
 }
 
@@ -83,6 +83,7 @@ html::-webkit-scrollbar-track{
 
 html::-webkit-scrollbar-thumb{
    background-color: var(--main-color);
+   border-radius: 0.5rem;
 }
 
 body{
@@ -1382,8 +1383,24 @@ section{
    margin-top: 2rem;
 }
 
+#courses-details {
+   max-height: 24rem; /* Adjust this value based on your design */
+   overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
+}
+#courses-details::-webkit-scrollbar{
+   width: 0.7rem;
+   height: .5rem;
+   
+}
 
+#courses-details::-webkit-scrollbar-track{
+   background-color: transparent;
+}
 
+#courses-details::-webkit-scrollbar-thumb{
+   background-color: var(--main-color);
+   border-radius: 0.5rem;
+}
 
 @media (max-width:1200px){
 
