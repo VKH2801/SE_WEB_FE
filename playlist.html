@@ -74,14 +74,14 @@
       <div id="error-message"></div>
       <div class="row">
          <div class="column">
-            <form action="" method="post" class="save-playlist">
+            <form action="" method="post" class="save-playlist" id="btn-save-playlist">
                <button type="submit">
                   <i class="far fa-bookmark"></i> <span>save playlist</span>
                </button>
             </form>
 
             <div class="thumb" id="thumbnail-banner">
-               <img alt="video thumbnail" src="images/post-1-1.png"/>
+               <img alt="video thumbnail" src="images/post-1-1.png" />
                <span></span>
             </div>
          </div>
@@ -96,8 +96,11 @@
 
             <div class="details" id="courses-details">
                <h3>HTML</h3>
-               <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque labore ratione, hic exercitationem mollitia obcaecati culpa dolor placeat provident porro.
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid iure autem non fugit sint. A, sequi rerum architecto dolor fugiat illo, iure velit nihil laboriosam cupiditate voluptatum facere cumque nemo!</p>
+               <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque labore ratione, hic exercitationem
+                  mollitia obcaecati culpa dolor placeat provident porro.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid iure autem non fugit sint. A, sequi
+                  rerum architecto dolor fugiat illo, iure velit nihil laboriosam cupiditate voluptatum facere cumque
+                  nemo!</p>
                <a href="teacher_profile.html" class="inline-btn">view profile</a>
             </div>
          </div>
@@ -105,7 +108,6 @@
    </section>
 
    <section class="playlist-videos">
-      <div id="error-message"></div>
       <h1 class="heading">playlist videos</h1>
 
       <div class="box-container" id="container-playlist-video">
@@ -209,11 +211,11 @@
       const playlistContainer = document.getElementById(
          "container-playlist-video"
       );
-
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseId = urlParams.get("id");
       //Init - fetch data form id in url
       document.addEventListener("DOMContentLoaded", async function () {
-         const urlParams = new URLSearchParams(window.location.search);
-         const courseId = urlParams.get("id");
+         
          try {
             const apiUrl = `https://uit-edu.onrender.com/api/courses/${courseId}`;
             const response = await fetch(apiUrl, {
@@ -264,6 +266,61 @@
             console.error("Fetch error:", error);
             errorMessageCoursesContainer.textContent = "*Fetch Error";
          }
+
+
+
+
+
+         // Handle submit button save playlist
+         // Find id courses match the id in bookmarkedCourses.
+         const userData = localStorage.getItem('userLoginData');
+         const decodedDataUser = JSON.parse(decodeURIComponent(userData));
+         console.log(decodedDataUser);
+         let isBookmarked = decodedDataUser.bookmarkedCourses.some(item => item.course === courseId);
+         const savePlaylistForm = document.getElementById("btn-save-playlist");
+         savePlaylistForm.querySelector('button');
+
+         updateSavePlaylistButtonStyle(savePlaylistForm, isBookmarked);
+          // Function to update save playlist button style based on bookmarked state
+          function updateSavePlaylistButtonStyle(button, isBookmarked) {
+            if (isBookmarked) {
+               button.classList.add('bookmarked');
+            } else {
+               button.classList.remove('bookmarked');
+            }
+         }
+
+         savePlaylistForm.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get("id");
+
+            try {
+               const apiUrl = `https://uit-edu.onrender.com/api/courses/${courseId}/bookmark`;
+               const response = await fetch(apiUrl, {
+                  method: "POST", // Use POST for bookmarking, you can use DELETE for removing
+                  headers: {
+                     "Content-Type": "application/json",
+                  },
+                  // You may need to include additional data in the body, e.g., user ID
+                  // body: JSON.stringify({ userId: localStorage.getItem("userId") }),
+               });
+
+               const data = await response.json();
+
+               if (data.success) {
+                  console.log("Playlist bookmarked successfully!");
+                  // You can update the UI or perform additional actions if needed
+               } else {
+                  console.error("Bookmarking failed:", data.message);
+                  // Handle the error, show a message, etc.
+               }
+            } catch (error) {
+               console.error("Fetch error:", error);
+               // Handle fetch errors, show a message, etc.
+            }
+         });
       });
    </script>
 </body>

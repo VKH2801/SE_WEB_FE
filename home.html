@@ -90,8 +90,8 @@
             <a href="#" class="inline-btn">view likes</a>
             <p class="likes">total comments : <span>12</span></p>
             <a href="#" class="inline-btn">view comments</a>
-            <p class="likes">saved playlists : <span>4</span></p>
-            <a href="#" class="inline-btn">view playlists</a>
+            <p class="likes" id="playlist-saved">saved playlists : <span>0</span></p>
+            <a href="bookmarkCourse.html" class="inline-btn">view playlists</a>
          </div>
 
          <div class="box">
@@ -151,11 +151,49 @@
 
    <!-- custom js file link  -->
    <script src="js/script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
    <script>
-      document.addEventListener('DOMContentLoaded', function () {
+      const numBookmark = document.getElementById('playlist-saved');
+      document.addEventListener('DOMContentLoaded', async function () {
          // Retrieve the data from localStorage when screen init
          const encodedData = localStorage.getItem('userLoginData');
+         const userId = localStorage.getItem('userId');
+         const urlBookmarks = `https://uit-edu.onrender.com/api/users/${userId}/bookmarks`;
          let userRole;
+         //Get total bookmarks
+         try {
+            const response = await fetch(urlBookmarks, {
+               method: 'GET',
+               headers: {
+                  'Content-Type': 'application/json',
+               },
+            });
+
+            const data = await response.json();
+            console.log(data);
+             // Display all playlists saved
+            if (data.success) {
+               const totalPlaylistUserSave = data.message.length;
+               numBookmark.querySelector('span').textContent = totalPlaylistUserSave;
+            } else {
+               console.error('Fetch error in getting bookmarks for user');
+            }
+            
+         } catch (error) {
+            console.error(error);
+         }
          //console.log(encodedData);
          if (encodedData) {
             const decodedData = JSON.parse(decodeURIComponent(encodedData));
@@ -186,6 +224,7 @@
                document.getElementById('coursesLink').style.display = 'flex';
                document.getElementById('adminLink').style.display = 'flex';
             }
+           
          } else {
             // If no data found, handle accordingly
             console.error('No user data found in localStorage.');
@@ -320,6 +359,6 @@
       });
 
    </script>
-</body>  
+</body>
 
 </html>

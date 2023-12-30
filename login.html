@@ -58,10 +58,10 @@
 
                if (data.success === true) {
                   const jsonDataString = JSON.stringify(data.data);
-
+                  
                   // Store the data in localStorage
                   localStorage.setItem('userLoginData', jsonDataString);
-
+                  localStorage.setItem('userId', data.data._id);
                   console.log(localStorage.getItem('userLoginData'));
 
                   errorMessageContainer.textContent = null;

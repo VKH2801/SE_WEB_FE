@@ -1402,6 +1402,27 @@ section{
    border-radius: 0.5rem;
 }
 
+#error-message-our-course {
+   color: red;
+   font-weight: bold;
+   margin-top: 10px;
+   font-size: 1.5rem;
+   text-transform: capitalize;
+   text-align: center;
+}
+
+.playlist-details .row .column .save-playlist button.bookmarked {
+   background-color: var(--black);
+}
+
+.playlist-details .row .column .save-playlist button.bookmarked i {
+   color: var(--white);
+}
+
+.playlist-details .row .column .save-playlist button.bookmarked span {
+   color: var(--white);
+}
+
 @media (max-width:1200px){
 
    body{

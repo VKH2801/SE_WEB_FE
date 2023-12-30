@@ -202,6 +202,8 @@
             const data = await response.json();
             
             if (data.success) {
+               const jsonDataString = JSON.stringify(data.message);
+               localStorage.setItem('userLoginData', jsonDataString);
                // Display a success message
                const successMessageContainer = document.getElementById('success-message');
                successMessageContainer.textContent = 'Update success';
