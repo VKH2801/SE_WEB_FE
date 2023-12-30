@@ -35,12 +35,11 @@
 
       <div class="profile">
          <img src="images/pic-1.jpg" class="image" alt="">
-         <h3 class="name">shaikh anas</h3>
-         <p class="role">student</p>
+         <h3 class="user-name name"></h3>
+         <p class="role"></p>
          <a href="profile.html" class="btn">view profile</a>
          <div class="flex-btn">
-            <a href="login.html" class="option-btn">login</a>
-            <a href="register.html" class="option-btn">register</a>
+            <a href="login.html" class="option-btn">logout</a>
          </div>
       </div>
 
@@ -55,26 +54,32 @@
    </div>
 
    <div class="profile">
-      <img src="images/pic-1.jpg" class="image" alt="">
-      <h3 class="name">VKH =.=</h3>
-      <p class="role">student</p>
-      <a href="profile.html" class="btn">view profile</a>
-   </div>
+         <img src="images/pic-1.jpg" class="image" alt="">
+         <h3 class="user-name name"></h3>
+         <p class="role"></p>
+         <a href="profile.html" class="btn">view profile</a>
+      </div>
 
    <nav class="navbar">
-      <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
-      <a href="about.html"><i class="fas fa-question"></i><span>about</span></a>
-      <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
-      <a href="admin.html"><i class="fas fa-chalkboard-user"></i><span>admin</span></a>
-      <a href="contact.html"><i class="fas fa-headset"></i><span>contact us</span></a>
+      <a href="home.html" id="homeLink"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="about.html" id="aboutLink"><i class="fas fa-question"></i><span>About</span></a>
+      <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+      <a href="admin.html" id="teachersLink" style="display: none;"><i
+               class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+      <a href="contact.html" id="contactLink"><i class="fas fa-headset"></i><span>Contact
+            Us</span></a>
+      <a href="edit-post.html" id="editPostLink" style="display: none;"><i
+            class="fa-solid fa-pen-to-square"></i><span>Edit Post</span></a>
+      <a href="admin.html" id="adminLink" style="display: none;"><i
+            class="fa-solid fa-user-tie"></i><span>Admin</span></a>
    </nav>
 
 </div>
 
 <section class="admin">
 
-   <h1 class="heading">expert admin</h1>
-
+   <h1 class="heading">List user</h1>
+<!-- 
    <div class="box-container">
 
       <div class="box offer">
@@ -181,10 +186,23 @@
          <a href="teacher_profile.html" class="inline-btn">view profile</a>
       </div>
 
-   </div>
+   </div> -->
+   <table class="table">
+		<div class="table-header">
+			<div class="header__item"><a id="user-email" class="filter__link" href="#">Email</a></div>
+			<div class="header__item"><a id="username" class="filter__link filter__link--number" href="#">Name</a></div>
+			<div class="header__item"><a id="user-enroll" class="filter__link filter__link--number" href="#">Enroll Course</a></div>
+         <div class="header__item"><a id="user-roll" class="filter__link filter__link--number" href="#">Roll</a></div>
+			<div class="header__item"><a id="user-action" class="filter__link filter__link--number" href="#">Actions</a></div>
+		</div>
+		<tbody class="table-content">	
+			
+		</tbody>	
+	</table>
+
 
 <div class="table">
-   <h1>List videos</h1>
+   <h1 class="heading">List courses</h1>
 	
 	<table class="table">
 		<div class="table-header">
@@ -221,15 +239,15 @@
 	</table>
 
    <div id="upload-form">
-      <h2>Upload Video</h2>
+      <h2 class="heading">Upload Video</h2>
       <form id="video-upload-form" enctype="multipart/form-data">
-          <input type="file" accept="video/*" id="video-input" name="video" required>
-          <button type="button" onclick="uploadVideo()">Upload</button>
+          <input type="file" accept="video/*" id="video-input" name="video" required class="box">
+          <button type="button" onclick="uploadVideo()" class="inline-btn">Upload</button>
       </form>
   </div>
 
   <div id="video-container">
-      <h2>Uploaded Video</h2>
+      <h2 class="heading">Uploaded Video</h2>
       <video controls id="uploaded-video"></video>
   </div>
 
@@ -264,7 +282,64 @@
 
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+      // Retrieve the data from localStorage when screen init
+      const encodedData = localStorage.getItem('userLoginData');
+      let userRole;
+      console.log(encodedData);
+      if (encodedData) {
+         const decodedData = JSON.parse(decodeURIComponent(encodedData));
+         userRole = decodedData.role
+         // Use the data as needed
+         console.log('User Data:', decodedData);
 
+         // Display the user's name
+         const welcomeMessages = document.getElementsByClassName('user-name');
+         for (const welcomeMessage of welcomeMessages) {
+            welcomeMessage.textContent = `${decodedData.name}`;
+         }
+
+         const userRoleDisplay = document.getElementsByClassName('role');
+         for (const role of userRoleDisplay) {
+            role.textContent = `${decodedData.role}`
+         }
+         localStorage.setItem('userId', decodedData._id);
+
+
+         // Hide links for non-admin users
+         if (userRole === 'student') {
+            document.getElementById('aboutLink').style.display = 'flex';
+            document.getElementById('coursesLink').style.display = 'flex';
+         } else {
+            document.getElementById('editPostLink').style.display = 'flex';
+            document.getElementById('aboutLink').style.display = 'flex';
+            document.getElementById('coursesLink').style.display = 'flex';
+            document.getElementById('adminLink').style.display = 'flex';
+         }
+      } else {
+         // If no data found, handle accordingly
+         console.error('No user data found in localStorage.');
+      }
+   });
+
+   // Check if the input data is valid JSON
+   function isValidJson(data) {
+      try {
+         JSON.parse(data);
+         return true;
+      } catch (error) {
+         return false;
+      }
+   }
+</script>
+
+<!-- Load data for list when init screen -->
+<script>
+   document.addEventListener('DOMContentLoaded', async function () {
+
+   })
+</script>
    
 </body>
 </html>

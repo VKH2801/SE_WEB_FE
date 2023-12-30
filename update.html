@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>update</title>
-
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
@@ -13,84 +14,90 @@
    <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
+   <div id="success-message" class="success-message"></div>
+   <header class="header">
 
-<header class="header">
-   
-   <section class="flex">
+      <section class="flex">
 
-      <a href="home.html" class="logo">UIT-EDU</a>
+         <a href="home.html" class="logo">UIT-EDU</a>
 
-      <form action="search.html" method="post" class="search-form">
-         <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
-         <button type="submit" class="fas fa-search"></button>
-      </form>
+         <form action="search.html" method="post" class="search-form">
+            <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
+            <button type="submit" class="fas fa-search"></button>
+         </form>
 
-      <div class="icons">
-         <div id="menu-btn" class="fas fa-bars"></div>
-         <div id="search-btn" class="fas fa-search"></div>
-         <div id="user-btn" class="fas fa-user"></div>
-         <div id="toggle-btn" class="fas fa-sun"></div>
+         <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <div id="search-btn" class="fas fa-search"></div>
+            <div id="user-btn" class="fas fa-user"></div>
+            <div id="toggle-btn" class="fas fa-sun"></div>
+         </div>
+
+         <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+            <h3 class="user-name name"></h3>
+            <p class="role"></p>
+            <a href="profile.html" class="btn">view profile</a>
+            <div class="flex-btn">
+               <a href="login.html" class="option-btn">logout</a>
+            </div>
+         </div>
+
+      </section>
+
+   </header>
+
+   <div class="side-bar">
+
+      <div id="close-btn">
+         <i class="fas fa-times"></i>
       </div>
 
       <div class="profile">
          <img src="images/pic-1.jpg" class="image" alt="">
-         <h3 class="name">shaikh anas</h3>
-         <p class="role">student</p>
+         <h3 class="user-name name"></h3>
+         <p class="role"></p>
          <a href="profile.html" class="btn">view profile</a>
-         <div class="flex-btn">
-            <a href="login.html" class="option-btn">login</a>
-            <a href="register.html" class="option-btn">register</a>
-         </div>
       </div>
+
+      <nav class="navbar">
+         <a href="home.html" id="homeLink"><i class="fas fa-home"></i><span>Home</span></a>
+         <a href="about.html" id="aboutLink"><i class="fas fa-question"></i><span>About</span></a>
+         <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+         <a href="admin.html" id="teachersLink"><i
+               class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+         <a href="contact.html" id="contactLink"><i class="fas fa-headset"></i><span>Contact
+               Us</span></a>
+         <a href="edit-post.html" id="editPostLink" style="display: none;"><i
+               class="fa-solid fa-pen-to-square"></i><span>Edit Post</span></a>
+         <a href="admin.html" id="adminLink" style="display: none;"><i
+               class="fa-solid fa-user-tie"></i><span>Admin</span></a>
+      </nav>
+
+   </div>
+
+   <section class="form-container">
+
+      <form action="" method="post" enctype="multipart/form-data" id="updateProfileForm">
+         <h3>update profile</h3>
+         <p>update name</p>
+         <input type="text" name="name" placeholder="shaikh anas" maxlength="50" class="box">
+         <p>update email</p>
+         <input type="email" name="email" placeholder="shaikh@gmail.come" maxlength="50" class="box">
+         <p>new password</p>
+         <input type="password" name="new_pass" placeholder="enter your old password" maxlength="20" class="box">
+         <p>confirm password</p>
+         <input type="password" name="c_pass" placeholder="confirm your new password" maxlength="20" class="box">
+         <p>update pic</p>
+         <input type="file" accept="image/*" class="box">
+         <input type="submit" value="update profile" name="submit" class="btn">
+         <div id="error-message"></div>
+      </form>
 
    </section>
 
-</header>   
-
-<div class="side-bar">
-
-   <div id="close-btn">
-      <i class="fas fa-times"></i>
-   </div>
-
-   <div class="profile">
-      <img src="images/pic-1.jpg" class="image" alt="">
-      <h3 class="name">VKH =.=</h3>
-      <p class="role">student</p>
-      <a href="profile.html" class="btn">view profile</a>
-   </div>
-
-   <nav class="navbar">
-      <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
-      <a href="about.html"><i class="fas fa-question"></i><span>about</span></a>
-      <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
-      <a href="admin.html"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
-      <a href="contact.html"><i class="fas fa-headset"></i><span>contact us</span></a>
-   </nav>
-
-</div>
-
-<section class="form-container">
-
-   <form action="" method="post" enctype="multipart/form-data">
-      <h3>update profile</h3>
-      <p>update name</p>
-      <input type="text" name="name" placeholder="shaikh anas" maxlength="50" class="box">
-      <p>update email</p>
-      <input type="email" name="email" placeholder="shaikh@gmail.come" maxlength="50" class="box">
-      <p>previous password</p>
-      <input type="password" name="old_pass" placeholder="enter your old password" maxlength="20" class="box">
-      <p>new password</p>
-      <input type="password" name="new_pass" placeholder="enter your old password" maxlength="20" class="box">
-      <p>confirm password</p>
-      <input type="password" name="c_pass" placeholder="confirm your new password" maxlength="20" class="box">
-      <p>update pic</p>
-      <input type="file" accept="image/*" class="box">
-      <input type="submit" value="update profile" name="submit" class="btn">
-   </form>
-
-</section>
 
 
 
@@ -107,10 +114,112 @@
 
 
 
+   <!-- custom js file link  -->
+   <script src="js/script.js"></script>
+   <script src="js/bCrypt.js" type="text/javascript"></script>
+   <script>
+      document.addEventListener('DOMContentLoaded', async function () {
+         const errorMessageContainer = document.getElementById('error-message');
+         //=================== update elements when screen init
+         const userId = localStorage.getItem('userId').toString();
+         const apiUrl = `https://uit-edu.onrender.com/api/users/${userId}`;
+         try {
+            const response = await fetch(apiUrl, {
+               method: 'GET',
+               headers: {
+                  'Content-Type': 'application/json',
+               },
+            });
 
-<!-- custom js file link  -->
-<script src="js/script.js"></script>
+            const dataRes = await response.json();
+            console.log(dataRes);
+            if (dataRes.success === true) {
+               const welcomeMessages = document.getElementsByClassName('user-name');
+               for (const welcomeMessage of welcomeMessages) {
+                  welcomeMessage.textContent = `${dataRes.message.name}`;
+               }
 
-   
+               const userRoleDisplay = document.getElementsByClassName('role');
+               for (const role of userRoleDisplay) {
+                  role.textContent = `${dataRes.message.role}`
+               }
+               // set default value for init screen
+               const form = document.getElementById('updateProfileForm');
+               form.querySelector('[name="name"]').value = dataRes.message.name;
+               form.querySelector('[name="email"]').value = dataRes.message.username;
+
+            }
+         } catch (e) {
+            console.log('Error in fetch with _id', e.message);
+         }
+
+
+
+
+         //=============== Handle submit form
+         const form = document.getElementById('updateProfileForm');
+
+         form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Retrieve the values from the form
+            const name = form.querySelector('[name="name"]').value;
+            const email = form.querySelector('[name="email"]').value;
+            const newPass = form.querySelector('[name="new_pass"]').value;
+            const confirmPass = form.querySelector('[name="c_pass"]').value;
+
+            // Perform validation
+            if (!name || !email) {
+               errorMessageContainer.textContent = 'Name and email are required fields.';
+               return;
+            }
+
+            // If user entered new password, validate it
+            if (newPass || confirmPass) {
+               if (newPass !== confirmPass) {
+                  errorMessageContainer.textContent = 'New password and confirm password must match.';
+                  return;
+               }
+            } else {
+               errorMessageContainer.textContent = 'Password field is empty'
+               return;
+            }
+
+            const formUpdate = {
+               name: name,
+               username: email,
+               password: newPass
+            }
+            // For testing, log the values
+            const response = await fetch(apiUrl, {
+               method: 'PUT',
+               headers: {
+                  'Content-Type': 'application/json',
+               },
+               body: JSON.stringify(formUpdate),
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+               const jsonDataString = JSON.stringify(data.message);
+               localStorage.setItem('userLoginData', jsonDataString);
+               // Display a success message
+               const successMessageContainer = document.getElementById('success-message');
+               successMessageContainer.textContent = 'Update success';
+
+               // Optionally, you can add some styling to make the message more noticeable
+               successMessageContainer.classList.add('show-success');
+
+               // Redirect to the profile page after a short delay
+               setTimeout(() => {
+                  window.location.href = 'profile.html';
+               }, 2000); // 2000 milliseconds (2 seconds) delay, adjust as needed
+            }
+         });
+      })
+   </script>
+
 </body>
+
 </html>

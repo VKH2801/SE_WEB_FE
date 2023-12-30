@@ -1,174 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta charset="UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>video playlist</title>
 
    <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
 
    <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
-
+   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
+   <header class="header">
+      <section class="flex">
+         <a href="home.html" class="logo">UIT-EDU</a>
 
-<header class="header">
-   
-   <section class="flex">
+         <form action="search.html" method="post" class="search-form">
+            <input type="text" name="search_box" required placeholder="search courses..." maxlength="100" />
+            <button type="submit" class="fas fa-search"></button>
+         </form>
 
-      <a href="home.html" class="logo">UIT-EDU</a>
+         <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <div id="search-btn" class="fas fa-search"></div>
+            <div id="user-btn" class="fas fa-user"></div>
+            <div id="toggle-btn" class="fas fa-sun"></div>
+         </div>
 
-      <form action="search.html" method="post" class="search-form">
-         <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
-         <button type="submit" class="fas fa-search"></button>
-      </form>
+         <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="" />
+            <h3 class="user-name name"></h3>
+            <p class="role"></p>
+            <a href="profile.html" class="btn">view profile</a>
+            <div class="flex-btn">
+               <a href="login.html" class="option-btn">logout</a>
+            </div>
+         </div>
+      </section>
+   </header>
 
-      <div class="icons">
-         <div id="menu-btn" class="fas fa-bars"></div>
-         <div id="search-btn" class="fas fa-search"></div>
-         <div id="user-btn" class="fas fa-user"></div>
-         <div id="toggle-btn" class="fas fa-sun"></div>
+   <div class="side-bar">
+      <div id="close-btn">
+         <i class="fas fa-times"></i>
       </div>
 
       <div class="profile">
-         <img src="images/pic-1.jpg" class="image" alt="">
-         <h3 class="name">shaikh anas</h3>
-         <p class="role">student</p>
+         <img src="images/pic-1.jpg" class="image" alt="" />
+         <h3 class="user-name name"></h3>
+         <p class="role"></p>
          <a href="profile.html" class="btn">view profile</a>
-         <div class="flex-btn">
-            <a href="login.html" class="option-btn">login</a>
-            <a href="register.html" class="option-btn">register</a>
-         </div>
       </div>
 
-   </section>
-
-</header>   
-
-<div class="side-bar">
-
-   <div id="close-btn">
-      <i class="fas fa-times"></i>
+      <nav class="navbar">
+         <a href="home.html" id="homeLink"><i class="fas fa-home"></i><span>Home</span></a>
+         <a href="about.html" id="aboutLink"><i class="fas fa-question"></i><span>About</span></a>
+         <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+         <a href="admin.html" id="teachersLink" style="display: none"><i
+               class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+         <a href="contact.html" id="contactLink"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+         <a href="edit-post.html" id="editPostLink" style="display: none"><i
+               class="fa-solid fa-pen-to-square"></i><span>Edit Post</span></a>
+         <a href="admin.html" id="adminLink" style="display: none"><i
+               class="fa-solid fa-user-tie"></i><span>Admin</span></a>
+      </nav>
    </div>
 
-   <div class="profile">
-      <img src="images/pic-1.jpg" class="image" alt="">
-      <h3 class="name">VKH =.=</h3>
-      <p class="role">student</p>
-      <a href="profile.html" class="btn">view profile</a>
-   </div>
+   <section class="playlist-details">
+      <h1 class="heading">playlist details</h1>
+      <div id="error-message"></div>
+      <div class="row">
+         <div class="column">
+            <form action="" method="post" class="save-playlist" id="btn-save-playlist">
+               <button type="submit">
+                  <i class="far fa-bookmark"></i> <span>save playlist</span>
+               </button>
+            </form>
 
-   <nav class="navbar">
-      <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
-      <a href="about.html"><i class="fas fa-question"></i><span>about</span></a>
-      <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
-      <a href="admin.html"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
-      <a href="contact.html"><i class="fas fa-headset"></i><span>contact us</span></a>
-   </nav>
-
-</div>
-
-<section class="playlist-details">
-
-   <h1 class="heading">playlist details</h1>
-
-   <div class="row">
-
-      <div class="column">
-         <form action="" method="post" class="save-playlist">
-            <button type="submit"><i class="far fa-bookmark"></i> <span>save playlist</span></button>
-         </form>
-   
-         <div class="thumb">
-            <img src="images/thumb-1.png" alt="">
-            <span>10 videos</span>
-         </div>
-      </div>
-      <div class="column">
-         <div class="tutor">
-            <img src="images/pic-2.jpg" alt="">
-            <div>
-               <h3>john deo</h3>
-               <span>21-10-2022</span>
+            <div class="thumb" id="thumbnail-banner">
+               <img alt="video thumbnail" src="images/post-1-1.png" />
+               <span></span>
             </div>
          </div>
-   
-         <div class="details">
-            <h3>complete HTML tutorial</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum minus reiciendis, error sunt veritatis exercitationem deserunt velit doloribus itaque voluptate.</p>
-            <a href="teacher_profile.html" class="inline-btn">view profile</a>
+         <div class="column">
+            <div class="tutor" id="tutor-info">
+               <img src="images/pic-2.jpg" alt="tutor avatar" />
+               <div>
+                  <h3>Hoàng</h3>
+                  <span>27-12-2023</span>
+               </div>
+            </div>
+
+            <div class="details" id="courses-details">
+               <h3>HTML</h3>
+               <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque labore ratione, hic exercitationem
+                  mollitia obcaecati culpa dolor placeat provident porro.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid iure autem non fugit sint. A, sequi
+                  rerum architecto dolor fugiat illo, iure velit nihil laboriosam cupiditate voluptatum facere cumque
+                  nemo!</p>
+               <a href="teacher_profile.html" class="inline-btn">view profile</a>
+            </div>
          </div>
       </div>
-   </div>
+   </section>
 
-</section>
+   <section class="playlist-videos">
+      <h1 class="heading">playlist videos</h1>
 
-<section class="playlist-videos">
+      <div class="box-container" id="container-playlist-video">
+         <!-- <a class="box" href="watch-video.html">
+            <i class="fas fa-play"></i>
+            <img src="images/post-1-1.png" alt="" />
+            <h3>complete HTML tutorial (part 01)</h3>
+         </a>
 
-   <h1 class="heading">playlist videos</h1>
+         <a class="box" href="watch-video.html">
+            <i class="fas fa-play"></i>
+            <img src="images/post-1-2.png" alt="" />
+            <h3>complete HTML tutorial (part 02)</h3>
+         </a>
 
-   <div class="box-container">
+         <a class="box" href="watch-video.html">
+            <i class="fas fa-play"></i>
+            <img src="images/post-1-3.png" alt="" />
+            <h3>complete HTML tutorial (part 03)</h3>
+         </a>
 
-      <a class="box" href="watch-video.html">
-         <i class="fas fa-play"></i>
-         <img src="images/post-1-1.png" alt="">
-         <h3>complete HTML tutorial (part 01)</h3>
-      </a>
+         <a class="box" href="watch-video.html">
+            <i class="fas fa-play"></i>
+            <img src="images/post-1-4.png" alt="" />
+            <h3>complete HTML tutorial (part 04)</h3>
+         </a>
 
-      <a class="box" href="watch-video.html">
-         <i class="fas fa-play"></i>
-         <img src="images/post-1-2.png" alt="">
-         <h3>complete HTML tutorial (part 02)</h3>
-      </a>
+         <a class="box" href="watch-video.html">
+            <i class="fas fa-play"></i>
+            <img src="images/post-1-5.png" alt="" />
+            <h3>complete HTML tutorial (part 05)</h3>
+         </a> -->
 
-      <a class="box" href="watch-video.html">
-         <i class="fas fa-play"></i>
-         <img src="images/post-1-3.png" alt="">
-         <h3>complete HTML tutorial (part 03)</h3>
-      </a>
+         <!-- <a class="box" href="watch-video.html">
+            <i class="fas fa-play"></i>
+            <img src="images/post-1-6.png" alt="" />
+            <h3>complete HTML tutorial (part 06)</h3>
+         </a> -->
+      </div>
+   </section>
 
-      <a class="box" href="watch-video.html">
-         <i class="fas fa-play"></i>
-         <img src="images/post-1-4.png" alt="">
-         <h3>complete HTML tutorial (part 04)</h3>
-      </a>
+   <!-- custom js file link  -->
+   <script src="js/script.js"></script>
+   <!-- get user data from local storage -->
+   <script>
+      document.addEventListener("DOMContentLoaded", function () {
+         // Retrieve the data from localStorage when screen init
+         const encodedData = localStorage.getItem("userLoginData");
+         let userRole;
+         //console.log(encodedData);
+         if (encodedData) {
+            const decodedData = JSON.parse(decodeURIComponent(encodedData));
+            userRole = decodedData.role;
+            // Use the data as needed
+            //console.log('User Data:', decodedData);
 
-      <a class="box" href="watch-video.html">
-         <i class="fas fa-play"></i>
-         <img src="images/post-1-5.png" alt="">
-         <h3>complete HTML tutorial (part 05)</h3>
-      </a>
+            // Display the user's name
+            const welcomeMessages = document.getElementsByClassName("user-name");
+            for (const welcomeMessage of welcomeMessages) {
+               welcomeMessage.textContent = `${decodedData.name}`;
+            }
 
-      <a class="box" href="watch-video.html">
-         <i class="fas fa-play"></i>
-         <img src="images/post-1-6.png" alt="">
-         <h3>complete HTML tutorial (part 06)</h3>
-      </a>
+            const userRoleDisplay = document.getElementsByClassName("role");
+            for (const role of userRoleDisplay) {
+               role.textContent = `${decodedData.role}`;
+            }
+            localStorage.setItem("userId", decodedData._id);
 
-   </div>
+            // Hide links for non-admin users
+            if (userRole === "student") {
+               document.getElementById("aboutLink").style.display = "flex";
+               document.getElementById("coursesLink").style.display = "flex";
+            } else {
+               document.getElementById("editPostLink").style.display = "flex";
+               document.getElementById("aboutLink").style.display = "flex";
+               document.getElementById("coursesLink").style.display = "flex";
+               document.getElementById("adminLink").style.display = "flex";
+            }
+         } else {
+            // If no data found, handle accordingly
+            console.error("No user data found in localStorage.");
+         }
+      });
 
-</section>
+      // Check if the input data is valid JSON
+      function isValidJson(data) {
+         try {
+            JSON.parse(data);
+            return true;
+         } catch (error) {
+            return false;
+         }
+      }
+   </script>
+   <!-- get and start fetching data for the course -->
+   <script>
+      const errorMessage = document.getElementById("error-message");
+      const thumnailBanner = document.getElementById("thumbnail-banner");
+      const coursesDetails = document.getElementById("courses-details");
+      const tutorInfo = document.getElementById("tutor-info");
+      const playlistContainer = document.getElementById(
+         "container-playlist-video"
+      );
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseId = urlParams.get("id");
+      //Init - fetch data form id in url
+      document.addEventListener("DOMContentLoaded", async function () {
+         
+         try {
+            const apiUrl = `https://uit-edu.onrender.com/api/courses/${courseId}`;
+            const response = await fetch(apiUrl, {
+               method: "GET",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            });
+            const data = await response.json();
+
+
+            if (data.success) {
+               //Format data response
+               console.log(data.message);
+               const dateObj = new Date(data.message.uploadedTime);
+               const itemTime = `${dateObj.getDate()}-${dateObj.getMonth() + 1
+                  }-${dateObj.getFullYear()}`;
+               const totalVid = data.message.video.length;
+
+
+               //Set data response to ui
+               thumnailBanner.querySelector("img").src = data.message.thumbnail;
+               thumnailBanner.querySelector(
+                  "span"
+               ).textContent = `${totalVid} video`;
+               tutorInfo.querySelector("div span").textContent = itemTime;
+               coursesDetails.querySelector("h3").textContent = data.message.title;
+               coursesDetails.querySelector("p").textContent = data.message.description;
+               data.message.video.forEach((element) => {
+                  // Create a new box element
+                  const newBoxElement = document.createElement("a");
+                  newBoxElement.className = "box";
+                  newBoxElement.href = `watch-video.html?id=${element._id}`; // Set the link -> with video id
+
+                  // Append elements to the new box
+                  newBoxElement.innerHTML = `
+                     <i class="fas fa-play"></i>
+                     <img src="${element.thumbnail}" alt="">
+                     <h3>${element.title}</h3>`;
+
+                  // Append the new box to the box container
+                  playlistContainer.appendChild(newBoxElement);
+               });
+            } else {
+               errorMessage.textContent = data.message ?? "*Server Error";
+            }
+         } catch (error) {
+            console.error("Fetch error:", error);
+            errorMessageCoursesContainer.textContent = "*Fetch Error";
+         }
 
 
 
 
 
+         // Handle submit button save playlist
+         // Find id courses match the id in bookmarkedCourses.
+         const userData = localStorage.getItem('userLoginData');
+         const decodedDataUser = JSON.parse(decodeURIComponent(userData));
+         console.log(decodedDataUser);
+         let isBookmarked = decodedDataUser.bookmarkedCourses.some(item => item.course === courseId);
+         const savePlaylistForm = document.getElementById("btn-save-playlist");
+         savePlaylistForm.querySelector('button');
 
+         updateSavePlaylistButtonStyle(savePlaylistForm, isBookmarked);
+          // Function to update save playlist button style based on bookmarked state
+          function updateSavePlaylistButtonStyle(button, isBookmarked) {
+            if (isBookmarked) {
+               button.classList.add('bookmarked');
+            } else {
+               button.classList.remove('bookmarked');
+            }
+         }
 
+         savePlaylistForm.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
 
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get("id");
 
+            try {
+               const apiUrl = `https://uit-edu.onrender.com/api/courses/${courseId}/bookmark`;
+               const response = await fetch(apiUrl, {
+                  method: "POST", // Use POST for bookmarking, you can use DELETE for removing
+                  headers: {
+                     "Content-Type": "application/json",
+                  },
+                  // You may need to include additional data in the body, e.g., user ID
+                  // body: JSON.stringify({ userId: localStorage.getItem("userId") }),
+               });
 
+               const data = await response.json();
 
-
-
-
-
-<!-- custom js file link  -->
-<script src="js/script.js"></script>
-
-   
+               if (data.success) {
+                  console.log("Playlist bookmarked successfully!");
+                  // You can update the UI or perform additional actions if needed
+               } else {
+                  console.error("Bookmarking failed:", data.message);
+                  // Handle the error, show a message, etc.
+               }
+            } catch (error) {
+               console.error("Fetch error:", error);
+               // Handle fetch errors, show a message, etc.
+            }
+         });
+      });
+   </script>
 </body>
+
 </html>

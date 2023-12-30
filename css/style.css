@@ -18,12 +18,13 @@
    width: 100%;
    font-family: 'Nunito', sans-serif;
    font-size: 1.8rem;
+   margin-top: 2rem;
 }
 
 .table-header {
 	display:flex;
 	width:100%;
-	background:#000;
+	background:#8e44ad;
 	padding:2rem 0;
 }
 
@@ -82,6 +83,7 @@ html::-webkit-scrollbar-track{
 
 html::-webkit-scrollbar-thumb{
    background-color: var(--main-color);
+   border-radius: 0.5rem;
 }
 
 body{
@@ -1275,7 +1277,9 @@ section{
 }
 
 .form-container{
-   min-height: calc(100vh - 20rem);
+   /* min-height: calc(100vh - 20rem); */
+   height: 100vh;
+   width: 100vw;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -1301,6 +1305,14 @@ section{
    padding-top: 1rem;
 }
 
+.form-container form p .button-create-account {
+   color:cornflowerblue;
+}
+
+.form-container form p .button-create-account:hover {
+   cursor: pointer;
+}
+
 .form-container form p span{
    color: var(--red);
 }
@@ -1315,7 +1327,14 @@ section{
    margin: 1rem 0;
 }
 
-
+#error-message {
+   color: red;
+   font-weight: bold;
+   margin-top: 10px;
+   font-size: 1.5rem;
+   text-transform: capitalize;
+   text-align: center;
+}
 
 
 
@@ -1338,7 +1357,71 @@ section{
    color:var(--main-color);
 }
 
+.login-container {
+   padding: 0;
+}
 
+.success-message {
+   display: none;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   padding: 10px;
+   background-color: #4CAF50; /* Green background color */
+   color: white;
+   text-align: center;
+   z-index: 1000; /* Ensure it's above other elements */
+   transition: top 0.5s ease; /* Add a smooth transition effect */
+ }
+ 
+ .show-success {
+   top: 50px; /* Adjust the distance from the top as needed */
+ }
+ 
+.upload-form {
+   margin-top: 2rem;
+}
+
+#courses-details {
+   max-height: 24rem; /* Adjust this value based on your design */
+   overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
+}
+#courses-details::-webkit-scrollbar{
+   width: 0.7rem;
+   height: .5rem;
+   
+}
+
+#courses-details::-webkit-scrollbar-track{
+   background-color: transparent;
+}
+
+#courses-details::-webkit-scrollbar-thumb{
+   background-color: var(--main-color);
+   border-radius: 0.5rem;
+}
+
+#error-message-our-course {
+   color: red;
+   font-weight: bold;
+   margin-top: 10px;
+   font-size: 1.5rem;
+   text-transform: capitalize;
+   text-align: center;
+}
+
+.playlist-details .row .column .save-playlist button.bookmarked {
+   background-color: var(--black);
+}
+
+.playlist-details .row .column .save-playlist button.bookmarked i {
+   color: var(--white);
+}
+
+.playlist-details .row .column .save-playlist button.bookmarked span {
+   color: var(--white);
+}
 
 @media (max-width:1200px){
 

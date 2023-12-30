@@ -35,12 +35,11 @@
 
       <div class="profile">
          <img src="images/pic-1.jpg" class="image" alt="">
-         <h3 class="name">shaikh anas</h3>
-         <p class="role">student</p>
+         <h3 class="user-name name"></h3>
+         <p class="role"></p>
          <a href="profile.html" class="btn">view profile</a>
          <div class="flex-btn">
-            <a href="login.html" class="option-btn">login</a>
-            <a href="register.html" class="option-btn">register</a>
+            <a href="login.html" class="option-btn">logout</a>
          </div>
       </div>
 
@@ -55,45 +54,51 @@
    </div>
 
    <div class="profile">
-      <img src="images/pic-1.jpg" class="image" alt="">
-      <h3 class="name">VKH =.=</h3>
-      <p class="role">student</p>
-      <a href="profile.html" class="btn">view profile</a>
-   </div>
+         <img src="images/pic-1.jpg" class="image" alt="">
+         <h3 class="user-name name"></h3>
+         <p class="role"></p>
+         <a href="profile.html" class="btn">view profile</a>
+      </div>
 
    <nav class="navbar">
-      <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
-      <a href="about.html"><i class="fas fa-question"></i><span>about</span></a>
-      <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
-      <a href="admin.html"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
-      <a href="contact.html"><i class="fas fa-headset"></i><span>contact us</span></a>
+      <a href="home.html" id="homeLink"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="about.html" id="aboutLink"><i class="fas fa-question"></i><span>About</span></a>
+      <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+      <a href="admin.html" id="teachersLink" style="display: none;"><i
+               class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+      <a href="contact.html" id="contactLink"><i class="fas fa-headset"></i><span>Contact
+            Us</span></a>
+      <a href="edit-post.html" id="editPostLink" style="display: none;"><i
+            class="fa-solid fa-pen-to-square"></i><span>Edit Post</span></a>
+      <a href="admin.html" id="adminLink" style="display: none;"><i
+            class="fa-solid fa-user-tie"></i><span>Admin</span></a>
    </nav>
 
 </div>
 
-<section class="watch-video">
-
-   <div class="video-container">
+<section class="watch-video" >
+   <div id="error-message"></div>
+   <div class="video-container" id="watch-video-id">
       <div class="video">
-         <video src="images/vid-1.mp4" controls poster="images/post-1-1.png" id="video"></video>
+         <video src="https://res.cloudinary.com/drbbycbhq/video/upload/v1703440398/video/j7w0b8bzzdnnlalrsamx.mp4" controls poster="images/post-1-1.png" id="video"></video>
       </div>
       <h3 class="title">complete HTML tutorial (part 01)</h3>
       <div class="info">
          <p class="date"><i class="fas fa-calendar"></i><span>22-10-2022</span></p>
          <p class="date"><i class="fas fa-heart"></i><span>44 likes</span></p>
       </div>
-      <div class="tutor">
-         <img src="images/pic-2.jpg" alt="">
+      <div class="tutor" id="tutor-info">
+         <img src="images/pic-2.jpg" alt="tutor avatar">
          <div>
-            <h3>john deo</h3>
+            <h3>Hoàng</h3>
             <span>developer</span>
          </div>
       </div>
       <form action="" method="post" class="flex">
-         <a href="playlist.html" class="inline-btn">view playlist</a>
+         <a href="playlist.html" class="inline-btn" id="btn-viewPlaylist">view playlist</a>
          <button><i class="far fa-heart"></i><span>like</span></button>
       </form>
-      <p class="description">
+      <p class="description" id="description-text">
          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque labore ratione, hic exercitationem mollitia obcaecati culpa dolor placeat provident porro.
          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid iure autem non fugit sint. A, sequi rerum architecto dolor fugiat illo, iure velit nihil laboriosam cupiditate voluptatum facere cumque nemo!
       </p>
@@ -213,6 +218,116 @@
 
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
-   
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+      // Retrieve the data from localStorage when screen init
+      const encodedData = localStorage.getItem('userLoginData');
+      let userRole;
+      //console.log(encodedData);
+      if (encodedData) {
+         const decodedData = JSON.parse(decodeURIComponent(encodedData));
+         userRole = decodedData.role
+         // Use the data as needed
+         //console.log('User Data:', decodedData);
+
+         // Display the user's name
+         const welcomeMessages = document.getElementsByClassName('user-name');
+         for (const welcomeMessage of welcomeMessages) {
+            welcomeMessage.textContent = `${decodedData.name}`;
+         }
+
+         const userRoleDisplay = document.getElementsByClassName('role');
+         for (const role of userRoleDisplay) {
+            role.textContent = `${decodedData.role}`
+         }
+         localStorage.setItem('userId', decodedData._id);
+
+
+         // Hide links for non-admin users
+         if (userRole === 'student') {
+            document.getElementById('aboutLink').style.display = 'flex';
+            document.getElementById('coursesLink').style.display = 'flex';
+         } else {
+            document.getElementById('editPostLink').style.display = 'flex';
+            document.getElementById('aboutLink').style.display = 'flex';
+            document.getElementById('coursesLink').style.display = 'flex';
+            document.getElementById('adminLink').style.display = 'flex';
+         }
+      } else {
+         // If no data found, handle accordingly
+         console.error('No user data found in localStorage.');
+      }
+   });
+
+   // Check if the input data is valid JSON
+   function isValidJson(data) {
+      try {
+         JSON.parse(data);
+         return true;
+      } catch (error) {
+         return false;
+      }
+   }
+</script>
+
+<!-- Fetch data when screen init -->
+<script>
+   const errorMessage = document.getElementById('error-message');
+   const desInfo = document.getElementById('description-text');
+   const videoContainer = document.getElementById('watch-video-id');
+   const btnViewPlaylist = document.getElementById('btn-viewPlaylist');
+
+   const urlParams = new URLSearchParams(window.location.search);
+   const videoId = urlParams.get("id");
+   console.log(videoId);
+   document.addEventListener('DOMContentLoaded',async function () {
+      try {
+         // Fetch video info
+         const apiUrl = `https://uit-edu.onrender.com/api/videos/${videoId}`;
+         const response = await fetch(apiUrl, {
+            method: "GET",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+         })
+         
+         const data = await response.json();
+         console.log(data);
+         if (data.success) {
+            videoContainer.querySelector('video').src = data.message.src;
+            videoContainer.querySelector('video').poster  = data.message.thumbnail;
+            videoContainer.querySelector('.title').textContent = data.message.title;
+
+            // Fetch course info
+            const courseUrl = `https://uit-edu.onrender.com/api/courses/${data.message.course}`;
+            const coursesResponse = await fetch(courseUrl, {
+               method: "GET",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            });
+            const dataCourse = await coursesResponse.json();
+            if (dataCourse.success) {
+               console.log(dataCourse.message);
+               const dateObj = new Date(dataCourse.message.uploadedTime);
+               const itemTime = `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
+               //Set content for each elements
+               desInfo.textContent = dataCourse.message.description;
+               videoContainer.querySelector('.date span').textContent = itemTime;
+               btnViewPlaylist.href = `playlist.html?id=${dataCourse.message._id}`
+            } else {
+               errorMessage.textContent = dataCourse.message ?? '*Server Error when fetching course';
+               return;
+            }
+
+         } else {
+            errorMessage.textContent = dataCourse.message ?? '*Server Error when fetching video data';
+         }
+      } catch (error) {
+         console.error("Fetch error:", error);
+         errorMessage.textContent = '*Fetching is fail';
+      }
+   });
+</script>
 </body>
 </html>

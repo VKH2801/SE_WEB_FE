@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit post</title>
+  <!-- font awesome cdn link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+  <!-- custom css file link  -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+
+     <section class="flex">
+
+        <a href="home.html" class="logo">UIT-EDU</a>
+
+        <form action="search.html" method="post" class="search-form">
+           <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
+           <button type="submit" class="fas fa-search"></button>
+        </form>
+
+        <div class="icons">
+           <div id="menu-btn" class="fas fa-bars"></div>
+           <div id="search-btn" class="fas fa-search"></div>
+           <div id="user-btn" class="fas fa-user"></div>
+           <div id="toggle-btn" class="fas fa-sun"></div>
+        </div>
+
+        <div class="profile">
+           <img src="images/pic-1.jpg" class="image" alt="">
+           <h3 class="user-name name"></h3>
+           <p class="role"></p>
+           <a href="profile.html" class="btn">view profile</a>
+           <div class="flex-btn">
+              <a href="login.html" class="option-btn">logout</a>
+           </div>
+        </div>
+
+     </section>
+
+  </header>
+
+  <div class="side-bar">
+
+     <div id="close-btn">
+        <i class="fas fa-times"></i>
+     </div>
+
+     <div class="profile">
+        <img src="images/pic-1.jpg" class="image" alt="">
+        <h3 class="user-name name"></h3>
+        <p class="role"></p>
+        <a href="profile.html" class="btn">view profile</a>
+     </div>
+
+     <nav class="navbar">
+        <a href="home.html" id="homeLink"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="about.html" id="aboutLink"><i class="fas fa-question"></i><span>About</span></a>
+        <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+        <a href="admin.html" id="teachersLink" style="display: none;"><i
+              class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+        <a href="contact.html" id="contactLink"><i class="fas fa-headset"></i><span>Contact
+              Us</span></a>
+        <a href="edit-post.html" id="editPostLink" style="display: none;"><i
+              class="fa-solid fa-pen-to-square"></i><span>Edit Post</span></a>
+        <a href="admin.html" id="adminLink" style="display: none;"><i
+              class="fa-solid fa-user-tie"></i><span>Admin</span></a>
+     </nav>
+
+  </div>
+
+
+
+
+
+  
+
+
+
+  <!-- custom js file link  -->
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+       // Retrieve the data from localStorage when screen init
+       const encodedData = localStorage.getItem('userLoginData');
+       let userRole;
+       console.log(encodedData);
+       if (encodedData) {
+          const decodedData = JSON.parse(decodeURIComponent(encodedData));
+          userRole = decodedData.role
+          // Use the data as needed
+          console.log('User Data:', decodedData);
+
+          // Display the user's name
+          const welcomeMessages = document.getElementsByClassName('user-name');
+          for (const welcomeMessage of welcomeMessages) {
+             welcomeMessage.textContent = `${decodedData.name}`;
+          }
+
+          const userRoleDisplay = document.getElementsByClassName('role');
+          for (const role of userRoleDisplay) {
+             role.textContent = `${decodedData.role}`
+          }
+          localStorage.setItem('userId', decodedData._id);
+
+
+          // Hide links for non-admin users
+          if (userRole === 'student') {
+             document.getElementById('aboutLink').style.display = 'flex';
+             document.getElementById('coursesLink').style.display = 'flex';
+          } else {
+             document.getElementById('editPostLink').style.display = 'flex';
+             document.getElementById('aboutLink').style.display = 'flex';
+             document.getElementById('coursesLink').style.display = 'flex';
+             document.getElementById('adminLink').style.display = 'flex';
+          }
+       } else {
+          // If no data found, handle accordingly
+          console.error('No user data found in localStorage.');
+       }
+    });
+
+    // Check if the input data is valid JSON
+    function isValidJson(data) {
+       try {
+          JSON.parse(data);
+          return true;
+       } catch (error) {
+          return false;
+       }
+    }
+ </script>
+</body>
+</html>
