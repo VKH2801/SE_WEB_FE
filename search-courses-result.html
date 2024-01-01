@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Courses</title>
+
+  <!-- font awesome cdn link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+  <!-- custom css file link  -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+  <header class="header">
+
+    <section class="flex">
+
+      <a href="home.html" class="logo">UIT-EDU</a>
+
+      <form method="get" class="search-form" id="search-form">
+        <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
+        <button onclick="onClickIconSearch(event)" type="submit" class="fas fa-search"></button>
+     </form>
+
+      <div class="icons">
+        <div id="menu-btn" class="fas fa-bars"></div>
+        <div id="search-btn" class="fas fa-search"></div>
+        <div id="user-btn" class="fas fa-user"></div>
+        <div id="toggle-btn" class="fas fa-sun"></div>
+      </div>
+
+      <div class="profile">
+        <img src="images/pic-1.jpg" class="image" alt="">
+        <h3 class="user-name name"></h3>
+        <p class="role"></p>
+        <a href="profile.html" class="btn">view profile</a>
+        <div class="flex-btn">
+          <a href="login.html" class="option-btn">logout</a>
+        </div>
+      </div>
+
+    </section>
+
+  </header>
+
+
+  <div class="side-bar">
+
+    <div id="close-btn">
+      <i class="fas fa-times"></i>
+    </div>
+
+    <div class="profile">
+      <img src="images/pic-1.jpg" class="image" alt="">
+      <h3 class="user-name name"></h3>
+      <p class="role"></p>
+      <a href="profile.html" class="btn">view profile</a>
+    </div>
+
+
+    <nav class="navbar">
+      <a href="home.html" id="homeLink"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="about.html" id="aboutLink"><i class="fas fa-question"></i><span>About</span></a>
+      <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+      <a href="admin.html" id="teachersLink" style="display: none;"><i
+          class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+      <a href="contact.html" id="contactLink"><i class="fas fa-headset"></i><span>Contact
+          Us</span></a>
+      <a href="edit-post.html" id="editPostLink" style="display: none;"><i
+          class="fa-solid fa-pen-to-square"></i><span>Edit Post</span></a>
+      <a href="admin.html" id="adminLink" style="display: none;"><i
+          class="fa-solid fa-user-tie"></i><span>Admin</span></a>
+    </nav>
+
+  </div>
+
+
+  <section class="playlist-details">
+    <h1 class="heading">List courses</h1>
+    <div id="error-message"></div>
+
+
+    <div class="row" style="margin-top: 5rem;">
+       <div class="column">
+          <!-- <form action="" method="post" class="save-playlist" id="btn-save-playlist">
+             <button type="submit">
+                <i class="far fa-bookmark"></i> <span>save playlist</span>
+             </button>
+          </form> -->
+
+          <div class="thumb" id="thumbnail-banner">
+             <img alt="video thumbnail" src="images/post-1-1.png" />
+             <span></span>
+          </div>
+       </div>
+       <div class="column">
+          <div class="tutor" id="tutor-info">
+             <img src="images/pic-2.jpg" alt="tutor avatar" />
+             <div>
+                <h3>Hoàng</h3>
+                <span>27-12-2023</span>
+             </div>
+          </div>
+
+          <div class="details" id="courses-details">
+             <h3>HTML</h3>
+             <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque labore ratione, hic exercitationem
+                mollitia obcaecati culpa dolor placeat provident porro.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid iure autem non fugit sint. A, sequi
+                rerum architecto dolor fugiat illo, iure velit nihil laboriosam cupiditate voluptatum facere cumque
+                nemo!</p>
+             
+          </div>
+       </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 5rem;">
+      <div class="column">
+         <!-- <form action="" method="post" class="save-playlist" id="btn-save-playlist">
+            <button type="submit">
+               <i class="far fa-bookmark"></i> <span>save playlist</span>
+            </button>
+         </form> -->
+
+         <div class="thumb" id="thumbnail-banner">
+            <img alt="video thumbnail" src="images/post-1-1.png" />
+            <span></span>
+         </div>
+      </div>
+      <div class="column">
+         <div class="tutor" id="tutor-info">
+            <img src="images/pic-2.jpg" alt="tutor avatar" />
+            <div>
+               <h3>Hoàng</h3>
+               <span>27-12-2023</span>
+            </div>
+         </div>
+
+         <div class="details" id="courses-details">
+            <h3>HTML</h3>
+            <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque labore ratione, hic exercitationem
+               mollitia obcaecati culpa dolor placeat provident porro.
+               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid iure autem non fugit sint. A, sequi
+               rerum architecto dolor fugiat illo, iure velit nihil laboriosam cupiditate voluptatum facere cumque
+               nemo!</p>
+            
+         </div>
+      </div>
+   </div>
+
+ </section>
+
+
+
+
+
+  <!-- custom js file link  -->
+  <script src="js/script.js"></script>
+  <script src="src/search-api.js"></script>
+
+
+</body>
+
+</html>
