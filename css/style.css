@@ -1535,19 +1535,39 @@ section{
    position: relative;
 }
 .action-container {
-   position: absolute;
+   position: relative;
    top: 0;
    right: 0;
    padding: 5px; /* Optional: Add padding to the action-container */
    border-radius: 5px; /* Optional: Add border-radius for styling */
    display: flex;
    gap: 0.7rem;
+   justify-content: flex-end;
 }
 .action-container .fa-pen-to-square {
    font-size: 2rem;
+   background-color: var(--main-color);
+   border-radius: .5rem;
+   color:#fff;
+   font-size: 1.8rem;
+   cursor: pointer;
+   text-transform: capitalize;
+   padding:1rem 1rem;
+   text-align: center;
+   margin-top: 1rem;
 }
 .action-container .fa-trash {
    font-size: 2rem;
+   font-size: 2rem;
+   background-color: var(--main-color);
+   border-radius: .5rem;
+   color:#fff;
+   font-size: 1.8rem;
+   cursor: pointer;
+   text-transform: capitalize;
+   padding:1rem 1rem;
+   text-align: center;
+   margin-top: 1rem;
 }
 .card-image {
    margin-bottom: 1rem;

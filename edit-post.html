@@ -234,15 +234,16 @@
          // Populate card with actual data from the API
          // Update properties like course.instructor, course.thumbnail, etc.
          cardElement.innerHTML = `
-      <div class="action-container" data-card-id="${course._id}">
-         <i class="fa-solid fa-pen-to-square" id="editIcon_${course._id}"></i>
-         <i class="fa-solid fa-trash"></i>
-      </div>
+  
       <div class="card-image">
          <img src="${course.thumbnail}" alt="">
       </div>
       <a href="playlist.html?id=${course._id}" class="card-title">${course.title}</a>
       <p class="card-description">${course.description}</p>
+      <div class="action-container" data-card-id="${course._id}">
+         <button class="fa-solid fa-pen-to-square" id="editIcon_${course._id}"></button>
+         <button class="fa-solid fa-trash"></button>
+      </div>
    `;
 
          return cardElement;

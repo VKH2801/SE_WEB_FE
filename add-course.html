@@ -232,9 +232,9 @@
 
      <form action="" method="post" enctype="multipart/form-data" id="addNewCourses">
         <h3>Add New Courses</h3>
-        <p>add title</p>
+        <p>Add title</p>
         <input type="text" name="title" placeholder="shaikh anas" maxlength="50" class="box">
-        <p>add description</p>
+        <p>Add description</p>
         <div class="container" id="container-description">
          <div class="toolbar">
            <div class="head">
@@ -291,7 +291,7 @@
              <button id="show-code" data-active="false">&lt;/&gt;</button>
            </div> -->
          </div>
-         <div id="content" contenteditable="true" spellcheck="false">
+         <textarea style="min-width: 100%; min-height: 200px;" id="content" contenteditable="true" name="content" spellcheck="false">
            Chào mừng bạn đến với khóa học HTML cơ bản! Khám phá thế giới của lập trình web và thiết kế trang web bằng
            cách học HTML, ngôn ngữ đánh dấu mạnh mẽ và quan trọng nhất. Trong khóa học này, bạn sẽ học cách tạo ra trang
            web từ đầu bằng cách sử dụng các thẻ, thuộc tính và cú pháp HTML.\n\nTừ việc tạo cấu trúc cơ bản của trang web
@@ -300,11 +300,11 @@
            dùng tốt nhất.\n\nKhông cần kinh nghiệm trước đây, khóa học này dành cho tất cả mọi người muốn bắt đầu hành
            trình của mình trong lập trình web. Hãy sẵn sàng tham gia vào hành trình sáng tạo và khám phá tiềm năng không
            giới hạn của bạn trong thế giới web phát triển với khóa học HTML này!
-         </div>
+         </textarea>
        </div>
-        <p>add thumbnail</p>
+        <p>Add thumbnail</p>
         <div style="display: flex; flex-direction: row; justify-content: space-between;">
-          <input type="file" accept="image/*" class="box" id="thumbnail-courses-input">
+          <input required type="file" name="thumbnail" accept="image/*" class="box" id="thumbnail-courses-input">
           <input readonly type="submit-image" value="upload image" name="submit-image" class="btn" style="width: 20rem; height: 5.5rem;">
         </div>
         
