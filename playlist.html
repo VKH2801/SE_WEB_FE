@@ -15,7 +15,6 @@
 </head>
 
 <body>
-   <button onclick="openModal()">Xem Chi Tiết</button>
    <!-- Modal -->
    <div id="myModal" class="modal">
       <div class="modal-content">
@@ -85,9 +84,9 @@
       <div class="row">
          <div class="column">
             <form action="" method="post" class="save-playlist" id="btn-save-playlist">
-               <button type="submit">
+               <!-- <button type="submit">
                   <i class="far fa-bookmark"></i> <span>save playlist</span>
-               </button>
+               </button> -->
             </form>
 
             <div class="thumb" id="thumbnail-banner">
@@ -111,7 +110,7 @@
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid iure autem non fugit sint. A, sequi
                   rerum architecto dolor fugiat illo, iure velit nihil laboriosam cupiditate voluptatum facere cumque
                   nemo!</p>
-               <a href="teacher_profile.html" class="inline-btn">view profile</a>
+               <!-- <a href="teacher_profile.html" class="inline-btn">view profile</a> -->
             </div>
          </div>
       </div>
@@ -309,9 +308,9 @@
 
             const urlParams = new URLSearchParams(window.location.search);
             const courseId = urlParams.get("id");
-
+            const userId = localStorage.getItem('userId');
             try {
-               const apiUrl = `https://uit-edu.onrender.com/api/courses/${courseId}/bookmark`;
+               const apiUrl = `https://uit-edu.onrender.com/api/users/${userId}/bookmarks`;
                const response = await fetch(apiUrl, {
                   method: "POST", // Use POST for bookmarking, you can use DELETE for removing
                   headers: {
@@ -320,10 +319,13 @@
                      'Refresh-Token': refreshToken,
                   },
                   // You may need to include additional data in the body, e.g., user ID
-                  // body: JSON.stringify({ userId: localStorage.getItem("userId") }),
+                  body:JSON.stringify({
+            courseId: courseId
+         }),
                });
 
                const data = await response.json();
+               console.log('bookmark', data);
 
                if (data.success) {
                   console.log("Playlist bookmarked successfully!");

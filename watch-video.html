@@ -108,93 +108,16 @@
 
 <section class="comments">
 
-   <h1 class="heading">5 comments</h1>
+      <h3 id="comment-count"></h3>
+      <textarea id="comment_box" placeholder="enter your comment" required maxlength="1000" cols="30" rows="10"></textarea>
+      <div id="error-message-comment"></div>
+      <input type="submit" value="add comment" class="inline-btn" id="add_comment_btn">
 
-   <form action="" class="add-comment">
-      <h3>add comments</h3>
-      <textarea name="comment_box" placeholder="enter your comment" required maxlength="1000" cols="30" rows="10"></textarea>
-      <input type="submit" value="add comment" class="inline-btn" name="add_comment">
-   </form>
-
-   <h1 class="heading">user comments</h1>
+   <h1 class="heading" style="margin-top: 20px;">user comments</h1>
 
    <div class="box-container">
 
-      <div class="box">
-         <div class="user">
-            <img src="images/pic-1.jpg" alt="">
-            <div>
-               <h3>shaikh anas</h3>
-               <span>22-10-2022</span>
-            </div>
-         </div>
-         <div class="comment-box">this is a comment form shaikh anas</div>
-         <form action="" class="flex-btn">
-            <input type="submit" value="edit comment" name="edit_comment" class="inline-option-btn">
-            <input type="submit" value="delete comment" name="delete_comment" class="inline-delete-btn">
-         </form>
-      </div>
-
-      <div class="box">
-         <div class="user">
-            <img src="images/pic-2.jpg" alt="">
-            <div>
-               <h3>john deo</h3>
-               <span>22-10-2022</span>
-            </div>
-         </div>
-         <div class="comment-box">awesome tutorial!
-            keep going!</div>
-      </div>
-
-      <div class="box">
-         <div class="user">
-            <img src="images/pic-3.jpg" alt="">
-            <div>
-               <h3>john deo</h3>
-               <span>22-10-2022</span>
-            </div>
-         </div>
-         <div class="comment-box">amazing way of teaching!
-            thank you so much!
-         </div>
-      </div>
-
-      <div class="box">
-         <div class="user">
-            <img src="images/pic-4.jpg" alt="">
-            <div>
-               <h3>john deo</h3>
-               <span>22-10-2022</span>
-            </div>
-         </div>
-         <div class="comment-box">loved it, thanks for the tutorial!</div>
-      </div>
-
-      <div class="box">
-         <div class="user">
-            <img src="images/pic-5.jpg" alt="">
-            <div>
-               <h3>john deo</h3>
-               <span>22-10-2022</span>
-            </div>
-         </div>
-         <div class="comment-box">this is what I have been looking for! thank you so much!</div>
-      </div>
-
-      <div class="box">
-         <div class="user">
-            <img src="images/pic-2.jpg" alt="">
-            <div>
-               <h3>john deo</h3>
-               <span>22-10-2022</span>
-            </div>
-         </div>
-         <div class="comment-box">thanks for the tutorial!
-
-            how to download source code file?
-         </div>
-      </div>
+     
 
    </div>
 
@@ -273,6 +196,7 @@
 <!-- Fetch data when screen init -->
 <script>
    const errorMessage = document.getElementById('error-message');
+   const errorMessageComment = document.getElementById('error-message-comment');
    const desInfo = document.getElementById('description-text');
    const videoContainer = document.getElementById('watch-video-id');
    const btnViewPlaylist = document.getElementById('btn-viewPlaylist');
@@ -294,9 +218,22 @@
                   'Refresh-Token': refreshToken,
                },
          })
+         const responseComment = await fetch(`https://uit-edu.onrender.com/api/comments/video/${videoId}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Token': accessToken,
+                'Refresh-Token': refreshToken,
+              },
+            });
          
          const data = await response.json();
-         console.log(data);
+      const dataCourseItem = await responseComment.json();
+
+         console.log(dataCourseItem.message.length);
+
+
+
          if (data.success) {
             videoContainer.querySelector('video').src = data.message.src;
             videoContainer.querySelector('video').poster  = data.message.thumbnail;
@@ -329,11 +266,102 @@
          } else {
             errorMessage.textContent = dataCourse.message ?? '*Server Error when fetching video data';
          }
+         if(dataCourseItem.success){
+            document.getElementById('comment-count').textContent = `${dataCourseItem.message.length} comments`;
+            for (const item of dataCourseItem.message) {
+               const cardElement = createCardWithData(item);
+               document.querySelector('.box-container').appendChild(cardElement);
+            }
+         }
+         else{
+            document.getElementById('comment-count').textContent = `No comment`;
+         }
       } catch (error) {
          console.error("Fetch error:", error);
          errorMessage.textContent = '*Fetching is fail';
       }
+
+
    });
+
+   // ================Handle load comment
+   function createCardWithData(data) {
+         const cardElement = document.createElement('div');
+         cardElement.className = 'box';
+
+         // Populate card with actual data from the API
+         // Update properties like data.instructor, data.thumbnail, etc.
+   
+         
+         cardElement.innerHTML = `
+         <div class="user">
+            <img src="images/pic-2.jpg" alt="">
+            <div>
+               <h3>${data.user.name}</h3>
+            </div>
+         </div>
+         <div class="comment-box">${data.content}</div>
+
+   `;
+
+         return cardElement;
+      }
+
+ //=============== Handle submit form
+ const buttonComment = document.getElementById('add_comment_btn');
+document.addEventListener('click', async function (e) {
+   if (e.target.id === 'add_comment_btn') {
+      const comment = document.getElementById('comment_box').value;
+      const userId = localStorage.getItem('userId');
+      const videoId = urlParams.get("id");
+      const responseComment = 
+      await fetch('https://2ac6-14-169-23-127.ngrok-free.app/api/detect-hate-speech/', {
+         method: 'POST',
+         body: JSON.stringify({
+            text: comment
+         }),
+         headers: {
+            'Content-Type': 'application/json',
+         }
+      });
+         
+      const dataIsHateSpeech = await responseComment.json();
+      console.log(dataIsHateSpeech.is_hate_speech);
+      if(dataIsHateSpeech.is_hate_speech){
+         errorMessageComment.textContent = '*Your comment is hate speech';
+         return;
+      } else {
+         const data = {
+         user: userId,
+         content: comment,
+         video: videoId,
+      };
+      console.log(data);
+      try {
+         const response = await fetch('https://uit-edu.onrender.com/api/comments', {
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+               'Access-Token': accessToken,
+               'Refresh-Token': refreshToken,
+            },
+            body: JSON.stringify(data),
+         });
+         const responseData = await response.json();
+         console.log(responseData);
+         if (responseData.success) {
+            window.location.reload();
+         } else {
+            errorMessage.textContent = responseData.message ?? '*Server Error when fetching video data';
+         }
+      } catch (error) {
+         console.error("Fetch error:", error);
+         errorMessage.textContent = '*Fetching is fail';
+      }
+      }
+      
+   }
+})
 </script>
 </body>
 </html>
