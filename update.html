@@ -12,7 +12,14 @@
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
-
+   <style>
+      .form-container #updateProfileForm{
+   background-color: var(--white);
+   border-radius: .5rem;
+   padding: 2rem;
+   width: 50rem;
+}
+   </style>
 </head>
 
 <body>
@@ -66,8 +73,7 @@
          <a href="home.html" id="homeLink"><i class="fas fa-home"></i><span>Home</span></a>
          <a href="about.html" id="aboutLink"><i class="fas fa-question"></i><span>About</span></a>
          <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
-         <a href="admin.html" id="teachersLink"><i
-               class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+         <a href="admin.html" id="teachersLink"><i class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
          <a href="contact.html" id="contactLink"><i class="fas fa-headset"></i><span>Contact
                Us</span></a>
          <a href="edit-post.html" id="editPostLink" style="display: none;"><i
@@ -118,6 +124,8 @@
    <script src="js/script.js"></script>
    <script src="js/bCrypt.js" type="text/javascript"></script>
    <script>
+      const accessToken = localStorage.getItem('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
       document.addEventListener('DOMContentLoaded', async function () {
          const errorMessageContainer = document.getElementById('error-message');
          //=================== update elements when screen init
@@ -128,6 +136,8 @@
                method: 'GET',
                headers: {
                   'Content-Type': 'application/json',
+                  'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
             });
 
@@ -146,7 +156,7 @@
                // set default value for init screen
                const form = document.getElementById('updateProfileForm');
                form.querySelector('[name="name"]').value = dataRes.message.name;
-               form.querySelector('[name="email"]').value = dataRes.message.username;
+               form.querySelector('[name="email"]').value = dataRes.message.email;
 
             }
          } catch (e) {
@@ -187,7 +197,7 @@
 
             const formUpdate = {
                name: name,
-               username: email,
+               email: email,
                password: newPass
             }
             // For testing, log the values
@@ -195,12 +205,14 @@
                method: 'PUT',
                headers: {
                   'Content-Type': 'application/json',
+                  'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
                body: JSON.stringify(formUpdate),
             });
 
             const data = await response.json();
-            
+
             if (data.success) {
                const jsonDataString = JSON.stringify(data.message);
                localStorage.setItem('userLoginData', jsonDataString);

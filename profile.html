@@ -62,7 +62,7 @@
          <a href="profile.html" class="btn">view profile</a>
       </div>
 
-     <nav class="navbar">
+      <nav class="navbar">
          <a href="home.html" id="homeLink"><i class="fas fa-home"></i><span>Home</span></a>
          <a href="about.html" id="aboutLink"><i class="fas fa-question"></i><span>About</span></a>
          <a href="courses.html" id="coursesLink"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
@@ -101,7 +101,7 @@
                      <p>saved playlist</p>
                   </div>
                </div>
-               <a href="#" class="inline-btn">view playlists</a>
+               <a href="bookmarkCourse.html" class="inline-btn">view playlists</a>
             </div>
 
             <div class="box">
@@ -147,6 +147,8 @@
    <!-- custom js file link  -->
    <script src="js/script.js"></script>
    <script>
+      const accessToken = localStorage.getItem('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
       const bookmarkElement = document.getElementById('playlist-saved');
       document.addEventListener('DOMContentLoaded', async function () {
          const encodedData = localStorage.getItem('userId');
@@ -157,6 +159,8 @@
                method: 'GET',
                headers: {
                   'Content-Type': 'application/json',
+                  'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
             });
 
@@ -166,27 +170,27 @@
                const welcomeMessages = document.getElementsByClassName('user-name');
                const userRole = dataRes.message.role;
                bookmarkElement.textContent = dataRes.message.bookmarkedCourses.length;
-            for (const welcomeMessage of welcomeMessages) {
-               welcomeMessage.textContent = `${dataRes.message.name}`;
-            }
+               for (const welcomeMessage of welcomeMessages) {
+                  welcomeMessage.textContent = `${dataRes.message.name}`;
+               }
 
-            const userRoleDisplay = document.getElementsByClassName('role');
-            for (const role of userRoleDisplay) {
-               role.textContent = `${dataRes.message.role}`
-            }
+               const userRoleDisplay = document.getElementsByClassName('role');
+               for (const role of userRoleDisplay) {
+                  role.textContent = `${dataRes.message.role}`
+               }
 
 
-            // Hide links for non-admin users
-            if (userRole === 'student') {
-               document.getElementById('aboutLink').style.display = 'flex';
-               document.getElementById('coursesLink').style.display = 'flex';
-            } else {
-               document.getElementById('editPostLink').style.display = 'flex';
-               document.getElementById('aboutLink').style.display = 'flex';
-               document.getElementById('coursesLink').style.display = 'flex';
-               document.getElementById('adminLink').style.display = 'flex';
+               // Hide links for non-admin users
+               if (userRole === 'student') {
+                  document.getElementById('aboutLink').style.display = 'flex';
+                  document.getElementById('coursesLink').style.display = 'flex';
+               } else {
+                  document.getElementById('editPostLink').style.display = 'flex';
+                  document.getElementById('aboutLink').style.display = 'flex';
+                  document.getElementById('coursesLink').style.display = 'flex';
+                  document.getElementById('adminLink').style.display = 'flex';
+               }
             }
-            } 
          } catch (e) {
             console.log('Error in fetch with _id', e.message);
          }

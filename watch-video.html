@@ -276,6 +276,8 @@
    const desInfo = document.getElementById('description-text');
    const videoContainer = document.getElementById('watch-video-id');
    const btnViewPlaylist = document.getElementById('btn-viewPlaylist');
+   const accessToken = localStorage.getItem('accessToken');
+   const refreshToken = localStorage.getItem('refreshToken');
 
    const urlParams = new URLSearchParams(window.location.search);
    const videoId = urlParams.get("id");
@@ -288,6 +290,8 @@
             method: "GET",
                headers: {
                   "Content-Type": "application/json",
+                  'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
          })
          
@@ -304,6 +308,8 @@
                method: "GET",
                headers: {
                   "Content-Type": "application/json",
+                  'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
             });
             const dataCourse = await coursesResponse.json();

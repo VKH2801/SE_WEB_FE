@@ -165,11 +165,17 @@
 
 
    <script>
+      // Retrieve the data from localStorage when screen init
+      const encodedData = localStorage.getItem('userLoginData');
+      console.log('encodedData', encodedData);
+      const accessToken = localStorage.getItem('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
+      console.log('Access Token: ', accessToken);
+      console.log('Refresh Token:', refreshToken);
+      const userId = localStorage.getItem('userId');
       const numBookmark = document.getElementById('playlist-saved');
       document.addEventListener('DOMContentLoaded', async function () {
-         // Retrieve the data from localStorage when screen init
-         const encodedData = localStorage.getItem('userLoginData');
-         const userId = localStorage.getItem('userId');
+
          const urlBookmarks = `https://uit-edu.onrender.com/api/users/${userId}/bookmarks`;
          let userRole;
          //Get total bookmarks
@@ -178,19 +184,26 @@
                method: 'GET',
                headers: {
                   'Content-Type': 'application/json',
+                  'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
             });
 
             const data = await response.json();
-            console.log(data);
-             // Display all playlists saved
+            console.log(data.message);
+            // Display all playlists saved
             if (data.success) {
+               let listBookmark = [];
+               data.message.forEach(element => {
+                  listBookmark.push(element.course);
+               })
+               localStorage.setItem('listBookmarked', listBookmark);
                const totalPlaylistUserSave = data.message.length;
                numBookmark.querySelector('span').textContent = totalPlaylistUserSave;
             } else {
                console.error('Fetch error in getting bookmarks for user');
             }
-            
+
          } catch (error) {
             console.error(error);
          }
@@ -224,7 +237,7 @@
                document.getElementById('coursesLink').style.display = 'flex';
                document.getElementById('adminLink').style.display = 'flex';
             }
-           
+
          } else {
             // If no data found, handle accordingly
             console.error('No user data found in localStorage.');
@@ -242,6 +255,23 @@
       }
    </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    <!-- Fetch all categories -->
    <script>
       const errorMessageContainer = document.getElementById('error-message');
@@ -253,6 +283,8 @@
                method: 'GET',
                headers: {
                   'Content-Type': 'application/json',
+                  'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
             });
 
@@ -291,6 +323,27 @@
    </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    <!-- Fetch course -->
    <script>
       document.addEventListener('DOMContentLoaded', async function () {
@@ -302,6 +355,8 @@
                method: 'GET',
                headers: {
                   'Content-Type': 'application/json',
+                  'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
             });
 
@@ -316,6 +371,7 @@
                // Save the array of course title to localStorage
                localStorage.setItem('courseTitle', JSON.stringify(listCoursesName));
                console.log(localStorage.getItem('courseTitle'));
+               localStorage.setItem('totalCourses', data.message.length);
                data.message.forEach((item, index) => {
                   if (index > 5) {
                      return;
