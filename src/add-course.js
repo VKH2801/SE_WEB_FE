@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("editPostLink").style.display = "flex";
       document.getElementById("aboutLink").style.display = "flex";
       document.getElementById("coursesLink").style.display = "flex";
-      document.getElementById("adminLink").style.display = "flex";
+      //document.getElementById("adminLink").style.display = "flex";
     }
   } else {
     // If no data found, handle accordingly

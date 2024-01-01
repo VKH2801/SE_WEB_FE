@@ -25,7 +25,7 @@
 
          <form method="get" class="search-form" id="search-form">
             <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
-            <button type="submit" class="fas fa-search"></button>
+            <button onclick="onClickIconSearch(event)" type="submit" class="fas fa-search"></button>
          </form>
 
          <div class="icons">
@@ -306,7 +306,7 @@
                document.getElementById('editPostLink').style.display = 'flex';
                document.getElementById('aboutLink').style.display = 'flex';
                document.getElementById('coursesLink').style.display = 'flex';
-               document.getElementById('adminLink').style.display = 'flex';
+               //document.getElementById('adminLink').style.display = 'flex';
             }
          } else {
             // If no data found, handle accordingly
