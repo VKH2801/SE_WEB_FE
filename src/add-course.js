@@ -6,93 +6,142 @@
 // so the URLs returned in the response will return 404 errors.
 
 // Reference link doc for cloundinary: https://cloudinary.com/documentation/client_side_uploading
-const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dsumaah4a/upload';
-const form = document.getElementById('addNewCourses');
+const cloudinaryUrl = "https://api.cloudinary.com/v1_1/dsumaah4a/upload";
 const uploadImageButton = document.querySelector('[name="submit-image"]');
+const submitBtn = document.getElementById("submit-thumbnail-image");
+const loadingBtn = document.getElementById("loading-spinner");
+const successBtn = document.getElementById("submit-success");
+const imageFileInput = document.querySelector("[type=file]");
+const accessToken = localStorage.getItem("accessToken");
+const refreshToken = localStorage.getItem("refreshToken");
+let thumbnailUrl;
 let decodeData;
 
-uploadImageButton.addEventListener('click', async function (event) {
+async function onClickUploadImage(event) {
   event.preventDefault();
-
-  const imageFile = document.querySelector('[type=file]').files;
+  const imageFile = imageFileInput.files;
   const formData = new FormData();
-
+  console.log(imageFile.length);
+  if (imageFile.length > 0) {
+    loadingBtn.style.display = "flex";
+    submitBtn.style.display = "none";
+  } else {
+    return;
+  }
   for (let i = 0; i < imageFile.length; i++) {
     let file = imageFile[i];
-    formData.append('file', file);
-    formData.append('upload_preset', 'zg66bk3z');
+    formData.append("file", file);
+    formData.append("upload_preset", "zg66bk3z");
 
     await fetch(cloudinaryUrl, {
-      method: 'POST',
+      method: "POST",
       body: formData,
     })
       .then((response) => {
-        console.log('response: ', response);
+        console.log("response: ", response);
+        loadingBtn.style.display = "none";
+        submitBtn.style.display = "none";
+        imageFileInput.disabled = true;
         return response.text();
       })
       .then((data) => {
         decodeData = JSON.parse(data);
-        console.log('data: ', decodeData.url);
+        if (decodeData) {
+          thumbnailUrl = decodeData.url;
+          console.log("image url: ", thumbnailUrl);
+        } else {
+          imageFileInput.disabled = false;
+          submitBtn.style.display = "inline";
+        }
       });
   }
-});
+}
 
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.querySelector('.form-container form');
-  const errorMessageContainer = document.getElementById('error-message');
+document.addEventListener("DOMContentLoaded", function () {
+  const errorMessage = document.getElementById("error-message-our-course");
+  // Retrieve the data from localStorage when screen init
+  const encodedData = localStorage.getItem("userLoginData");
+  let userRole;
+  //console.log(encodedData);
+  if (encodedData) {
+    const decodedData = JSON.parse(decodeURIComponent(encodedData));
+    userRole = decodedData.role;
+    // Use the data as needed
+    //console.log('User Data:', decodedData);
 
-  form.addEventListener('submit', async function (e) {
+    // Display the user's name
+    const welcomeMessages = document.getElementsByClassName("user-name");
+    for (const welcomeMessage of welcomeMessages) {
+      welcomeMessage.textContent = `${decodedData.name}`;
+    }
+
+    const userRoleDisplay = document.getElementsByClassName("role");
+    for (const role of userRoleDisplay) {
+      role.textContent = `${decodedData.role}`;
+    }
+    localStorage.setItem("userId", decodedData._id);
+
+    // Hide links for non-admin users
+    if (userRole === "student") {
+      document.getElementById("aboutLink").style.display = "flex";
+      document.getElementById("coursesLink").style.display = "flex";
+    } else {
+      document.getElementById("editPostLink").style.display = "flex";
+      document.getElementById("aboutLink").style.display = "flex";
+      document.getElementById("coursesLink").style.display = "flex";
+      document.getElementById("adminLink").style.display = "flex";
+    }
+  } else {
+    // If no data found, handle accordingly
+    console.error("No user data found in localStorage.");
+  }
+
+  //=============== Handle submit form
+  const form = document.getElementById("addNewCourses");
+
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    let title = form.querySelector('[name="title"]').value;
+    let description = document.getElementById("content").value;
+
+    // const formData = new FormData();
+    // formData.append('thumbnailFile', thumbnail.files[0]);
+    // formData.append('title', title.value);
+    // formData.append('description', description.value);
+    // formData.append('category', '658b512ca1707b8e2fd0ef5d');
+
     const formData = {
-      title: form.querySelector('[name="title"]').value,
-      content: form.querySelector('[name="content"]').value,
+      title: title,
+      description: description,
+      thumbnail: thumbnailUrl,
+      category: "658b512ca1707b8e2fd0ef5d",
     };
-
-    console.log('formdata: ', formData);
-
+    console.log(formData);
     try {
-      const response = await fetch('https://uit-edu.onrender.com/api/auth', {
-        method: 'POST',
+      const response = await fetch("https://uit-edu.onrender.com/api/courses", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          "Access-Token": accessToken,
+          "Refresh-Token": refreshToken,
         },
-        body: JSON.stringify({ ...formData, image: decodeData.url }),
+        body: JSON.stringify(formData),
       });
-      console.log(response.headers);
 
       const data = await response.json();
-
-      if (data.success === true) {
-        console.log(data);
-        // Store the data in localStorage
-        localStorage.setItem('userLoginData', JSON.stringify(data.data));
-        localStorage.setItem('userId', data.data._id);
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken', data.refreshToken);
-        console.log(localStorage.getItem('userLoginData'));
-
-        errorMessageContainer.textContent = null;
-
-        window.location.href = 'home.html';
+      if (data.success) {
+        window.location.href = "edit-post.html";
       } else {
-        // Display error message
-        errorMessageContainer.textContent =
-          data.message || '*Incorrect email or password.';
+        errorMessage.textContent = "Upload course fail, please try again";
+        title = null;
+        description = null;
+        thumbnailUrl = null;
+        imageFileInput.disabled = false;
+        submitBtn.style.display = "inline";
       }
     } catch (error) {
-      console.error('Fetch error:', error);
-      errorMessageContainer.textContent = '*Fetch error';
+      console.error(error);
     }
   });
 });
-
-// Check if the input data is valid JSON
-function isValidJson(data) {
-  try {
-    JSON.parse(data);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
