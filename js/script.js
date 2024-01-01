@@ -3,6 +3,9 @@ let body = document.body;
 let darkMode = localStorage.getItem('dark-mode');
 const url = 'https://uit-edu.onrender.com/api/';
 
+
+
+
 const enableDarkMode = () => {
   toggleBtn.classList.replace('fa-sun', 'fa-moon');
   body.classList.add('dark');
@@ -109,16 +112,153 @@ async function addVideosToTable(videos) {
 // });
 
 // Gọi hàm addVideo() khi form được submit
-function uploadVideo() {
+async function uploadVideo() {
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
   const videoInput = document.getElementById('video-input');
-  const uploadedVideo = document.getElementById('uploaded-video');
-  const videoContainer = document.getElementById('video-container');
+  const thumbnail = document.getElementById('thumbnail-video-input');
+  const title = document.getElementById('title-video-input')
+  // const uploadedVideo = document.getElementById('uploaded-video');
+  // const videoContainer = document.getElementById('video-container');
 
-  const file = videoInput.files[0];
-  if (file) {
-    const objectURL = URL.createObjectURL(file);
-    uploadedVideo.src = objectURL;
-    console.log(uploadedVideo);
-    videoContainer.style.display = 'block';
+  // const file = videoInput.files[0];
+
+  const formData = new FormData();
+  formData.append('videoFile', videoInput.files[0]);
+  formData.append('thumbnailFile', thumbnail.files[0]);
+  formData.append('title', title);
+  formData.append('course', courseId);
+
+  // try {
+  //   const response = await fetch('http://localhost:3000/upload', {
+  //     method: 'POST',
+  //     'Access-Token': accessToken,
+  //     'Refresh-Token': refreshToken,
+  //     body: formData,
+  //   });
+
+  //   const result = await response.json();
+  //   console.log(result.message);
+
+  //   if (result.success) {
+
+  //   }
+  // } catch (error) {
+  //   console.error(error);
+  // }
+}
+
+
+function formatDoc(cmd, value = null) {
+  if (value) {
+    document.execCommand(cmd, false, value);
+  } else {
+    document.execCommand(cmd);
   }
 }
+
+function addLink() {
+  const url = prompt('Insert url');
+  formatDoc('createLink', url);
+}
+
+function fileHandle(value) {
+  if (value === 'txt') {
+    // Save as text file
+    const content = document.getElementById('content').innerText;
+    const blob = new Blob([content], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'document.txt';
+    link.click();
+  } else if (value === 'pdf') {
+    // Save as PDF file using html2pdf library
+    const content = document.getElementById('content');
+    html2pdf(content);
+  }
+
+  // Reset the selection
+  document.getElementById('filename').value = 'untitled';
+  document.getElementById('fileType').selectedIndex = 0;
+}
+
+
+
+// Function to create a skeleton card element
+function createCardSkeleton() {
+  const cardElement = document.createElement('div');
+  cardElement.className = 'card';
+
+  const actionContainer = document.createElement('div');
+  actionContainer.className = 'action-container skeleton';
+  actionContainer.innerHTML = `
+<i class="fa-solid fa-pen-to-square"></i>
+<i class="fa-solid fa-trash"></i>
+`;
+  cardElement.appendChild(actionContainer);
+
+  const cardImage = document.createElement('div');
+  cardImage.className = 'card-image skeleton';
+  cardImage.innerHTML = `
+<img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGlsbHVzdHJhdGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="">
+`;
+  cardElement.appendChild(cardImage);
+
+  const cardTitle = document.createElement('a');
+  cardTitle.href = '#';
+  cardTitle.className = 'card-title skeleton';
+  cardTitle.textContent = 'Card title here';
+  cardElement.appendChild(cardTitle);
+
+  const cardDescription = document.createElement('p');
+  cardDescription.className = 'card-description skeleton';
+  cardDescription.textContent = 'Lorem ipsum dolor sit amet consectetur adipisicing elit...';
+  cardElement.appendChild(cardDescription);
+
+  return cardElement;
+}
+
+
+const cloudName = "dsumaah4a"; // replace with your own cloud name
+const uploadPreset = "zg66bk3z"; // replace with your own upload preset
+
+// Remove the comments from the code below to add
+// additional functionality.
+// Note that these are only a few examples, to see
+// the full list of possible parameters that you
+// can add see:
+//   https://cloudinary.com/documentation/upload_widget_reference
+
+// const myWidget = cloudinary.createUploadWidget(
+//   {
+//     cloudName: cloudName,
+//     uploadPreset: uploadPreset,
+//     // cropping: true, //add a cropping step
+//     // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+//     // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+//     // multiple: false,  //restrict upload to a single file
+//     // folder: "user_images", //upload files to the specified folder
+//     // tags: ["users", "profile"], //add the given tags to the uploaded files
+//     // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+//     // clientAllowedFormats: ["images"], //restrict uploading to image files only
+//     // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+//     // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+//     // theme: "purple", //change to a purple theme
+//   },
+//   (error, result) => {
+//     if (!error && result && result.event === "success") {
+//       console.log("Done! Here is the image info: ", result.info);
+//       document
+//         .getElementById("uploadedimage")
+//         .setAttribute("src", result.info.secure_url);
+//     }
+//   }
+// );
+
+// document.getElementById("upload_widget").addEventListener(
+//   "click",
+//   function () {
+//     myWidget.open();
+//   },
+//   false
+// );

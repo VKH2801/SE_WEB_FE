@@ -105,6 +105,8 @@
    <!-- custom js file link  -->
    <script src="js/script.js"></script>
    <script>
+      const accessToken = localStorage.getItem('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
       document.addEventListener('DOMContentLoaded', function () {
          // Retrieve the data from localStorage when screen init
          const encodedData = localStorage.getItem('userLoginData');
@@ -166,6 +168,8 @@
                method: 'GET',
                headers: {
                   'Content-Type': 'application/json',
+                   'Access-Token': accessToken,
+                  'Refresh-Token': refreshToken,
                },
             });
 

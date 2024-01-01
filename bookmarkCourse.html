@@ -157,35 +157,44 @@
   </script>
   <!-- fetch all courses saved-->
   <script>
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
     document.addEventListener('DOMContentLoaded', async function () {
       const errorMessageCoursesContainer = document.getElementById('error-message-our-course');
       const coursesContainer = document.getElementById('courses-box');
-      const userId = localStorage.getItem('userId');
-      const url = `https://uit-edu.onrender.com/api/users/${userId}/bookmarks`
+
       try {
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const listBookmark = localStorage.getItem('listBookmarked');
+        console.log(listBookmark);
+        const decodedListBookmarked = listBookmark.split(',');
+        console.log(decodedListBookmarked);
+        if (decodedListBookmarked) {
+          // Use Promise.all to wait for all asynchronous operations to complete
+          for (const element of decodedListBookmarked) {
+            console.log('element courses id: ', element);
+            const responseCourses = await fetch(`https://uit-edu.onrender.com/api/courses/${element}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Token': accessToken,
+                'Refresh-Token': refreshToken,
+              },
+            });
 
-        const data = await response.json();
-        if (data.success) {
-          console.log(data.message);
-          if (data.message !== null) {
-            data.message.forEach((item, index) => {
-            //Format uploadedTime
-            const dateObj = new Date(item.uploadedTime);
-            const itemTime = `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
-            const totalCoursesVid = item.video.length;
+            const dataCourseItem = await responseCourses.json();
+            console.log(dataCourseItem);
+            if (dataCourseItem.success) {
+              // ... Your existing code for processing the course data
+              //Format uploadedTime
+              const dateObj = new Date(dataCourseItem.message.uploadedTime);
+              const itemTime = `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
+              const totalCoursesVid = dataCourseItem.message.video.length;
 
-            // Create a new box element
-            const boxElement = document.createElement('div');
-            boxElement.className = 'box';
-
-            // Append elements to the box
-            boxElement.innerHTML = `
+              // Create a new box element
+              const boxElement = document.createElement('div');
+              boxElement.className = 'box';
+              // Append elements to the box
+              boxElement.innerHTML = `
                  <div class="tutor">
                      <img src="images/pic-2.jpg" alt="">
                      <div class="info">
@@ -194,24 +203,45 @@
                      </div>
                  </div>
                  <div class="thumb">
-                     <img src="${item.thumbnail}" alt="">
+                     <img src="${dataCourseItem.message.thumbnail}" alt="">
                      <span>${totalCoursesVid} video</span>
                  </div>
-                 <h3 class="title">${item.title}</h3>
-                 <a href="playlist.html?id=${item._id}" class="inline-btn">view playlist</a>
+                 <h3 class="title">${dataCourseItem.message.title}</h3>
+                 <a href="playlist.html?id=${dataCourseItem.message._id}" class="inline-btn">view playlist</a>`;
+
+              // Append the box to the courses container
+              coursesContainer.appendChild(boxElement);
+            } else {
+              // ... Your existing code for handling the case when dataCourseItem is not successful
+              // Create a new box element
+              const boxElement = document.createElement('div');
+              boxElement.className = 'box';
+              // Append elements to the box
+              boxElement.innerHTML = `
+                 <div class="tutor">
+                     <img src="images/pic-2.jpg" alt="">
+                     <div class="info">
+                         <h3>Hoàng</h3>
+                         <span>30-12-2023</span>
+                     </div>
+                 </div>
+                 <div class="thumb">
+                     <img src="images/thumb-1.png" alt="">
+                     <span>10 video</span>
+                 </div>
+                 <h3 class="title">HTML</h3>
+                 <a href="playlist.html" class="inline-btn">view playlist</a>
              `;
 
-            // Append the box to the courses container
-            coursesContainer.appendChild(boxElement);
-          });
-          } 
-          errorMessageCoursesContainer.textContent = 'No courses saved yet!!!'
+              // Append the box to the courses container
+              coursesContainer.appendChild(boxElement);
+            }
+          };
         } else {
-          errorMessageCoursesContainer.textContent = data.message ?? 'No courses saved yet!!!';
+          errorMessageCoursesContainer.textContent = 'No courses saved yet!!!';
         }
       } catch (error) {
-        console.error('Fetch error:', error);
-        errorMessageCoursesContainer.textContent = '*Fetch Error';
+        errorMessageCoursesContainer.textContent = '*Local storage Error';
       }
     });
 
