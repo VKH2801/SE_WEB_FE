@@ -262,3 +262,14 @@ const uploadPreset = "zg66bk3z"; // replace with your own upload preset
 //   },
 //   false
 // );
+
+function onClickIconSearch(event) {
+  event.preventDefault();
+
+  const searchValue = document.getElementById('search-form').querySelector('input');
+  console.log(searchValue);
+  window.location.href = `search-courses-result.html?query=${searchValue.value.trim()}`;
+  
+
+  
+}
